@@ -20,6 +20,17 @@ android {
 
     buildTypes {
         release {
+            isDebuggable = false
+            // Enable R8 full-mode shrinking/obfuscation for a production-ready, smaller APK.
+            // Keep-rule files under src/main/keepRules are picked up automatically by AGP.
+            optimization {
+                enable = true
+            }
+            // Sign the release build with the debug keystore so it can be tested locally.
+            // Replace with a real signing config before publishing to the Play Store.
+            signingConfig = signingConfigs.getByName("debug")
+        }
+        debug {
             optimization {
                 enable = false
             }

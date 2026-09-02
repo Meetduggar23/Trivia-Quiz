@@ -61,13 +61,21 @@ class SoundManager(private val context: Context) {
                 context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             }
 
-            if (isCorrect) {
-                // Short double pulse for correct
-                vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 50, 50, 50), -1))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (isCorrect) {
+                    // Short double pulse for correct
+                    vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 50, 50, 50), -1))
+                } else {
+                    // Single longer buzz for wrong
+                    vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+                }
             } else {
-                // Single longer buzz for wrong
-                vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+                // Pre-O (API 24-25) fallback — no VibrationEffect support
+                @Suppress("DEPRECATION")
+                vibrator.vibrate(if (isCorrect) 150L else 200L)
             }
+        } catch (e: SecurityException) {
+            // Vibration permission denied — fail silently
         } catch (_: Exception) {}
     }
 

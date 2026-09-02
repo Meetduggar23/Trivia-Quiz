@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Network state permission — required for connectivity check -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Vibration permission — required for haptic feedback on quiz answers -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
