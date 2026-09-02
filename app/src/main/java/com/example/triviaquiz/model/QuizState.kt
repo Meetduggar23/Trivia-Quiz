@@ -2,7 +2,7 @@ package com.example.triviaquiz.model
 
 /**
  * Represents the session state for a single question during the quiz.
- * This is separate from the API Question model to support Previous/Next navigation
+ * This is separate from the API Question model to support Previous/Next/Navigator navigation
  * and prevent double-counting of scores.
  *
  * Each question tracks:
@@ -11,6 +11,7 @@ package com.example.triviaquiz.model
  * - Whether the answer was correct or wrong
  * - Whether it was skipped
  * - Whether it was flagged for review
+ * - Whether it is bookmarked (permanent, survives quiz end)
  * - Which answers were eliminated by 50/50
  * - Whether 50/50 was used on this question
  */
@@ -22,6 +23,7 @@ data class QuizState(
     var isWrong: Boolean = false,
     var isSkipped: Boolean = false,
     var isFlagged: Boolean = false,
+    var isBookmarked: Boolean = false,
     var eliminatedAnswers: List<String> = emptyList(),
     var isFiftyFiftyUsed: Boolean = false
 )

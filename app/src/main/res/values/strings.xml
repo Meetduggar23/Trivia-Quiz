@@ -14,6 +14,27 @@
     <string name="quiz_history">Quiz History</string>
     <string name="achievements">Achievements</string>
     <string name="settings">Settings</string>
+    <string name="daily_challenge">DAILY CHALLENGE</string>
+    <string name="daily_subtitle">Today\'s Challenge</string>
+    <string name="start_challenge">Start Challenge</string>
+    <string name="view_result">View Result</string>
+    <string name="daily_completed">Completed ✓</string>
+    <string name="statistics">Statistics</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="level_format">LEVEL %1$d</string>
+    <string name="xp_format">%1$d / %2$d XP</string>
+
+    <!-- Resume Quiz -->
+    <string name="quiz_in_progress">Quiz in Progress</string>
+    <string name="unfinished_quiz">You have an unfinished quiz.</string>
+    <string name="resume_quiz">Resume Quiz</string>
+    <string name="start_new_quiz">Start New Quiz</string>
+
+    <!-- Leave Quiz -->
+    <string name="leave_quiz_title">Leave Quiz?</string>
+    <string name="leave_quiz_message">Your progress will be saved.</string>
+    <string name="continue_quiz">Continue Quiz</string>
+    <string name="exit_quiz">Exit Quiz</string>
 
     <!-- Categories -->
     <string name="cat_any">Any Category</string>
@@ -23,7 +44,7 @@
     <string name="cat_music">Music</string>
     <string name="cat_television">Television</string>
     <string name="cat_videogames">Video Games</string>
-    <string name="cat_science">Science</string>
+    <string name="cat_science">Science: Gadgets</string>
     <string name="cat_computers">Computers</string>
     <string name="cat_math">Mathematics</string>
     <string name="cat_mythology">Mythology</string>
@@ -50,7 +71,9 @@
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="flag">🚩 Flag</string>
-    <string name="flagged">🚩 Flagged</string>
+    <string name="flagged">Flagged</string>
+    <string name="bookmark">🔖 Bookmark</string>
+    <string name="bookmarked">Bookmarked</string>
     <string name="fifty_fifty">50/50</string>
     <string name="skip_question">Skip</string>
     <string name="add_time">+10s</string>
@@ -58,6 +81,8 @@
     <string name="wrong_feedback">Wrong! ✗</string>
     <string name="time_up">Time\'s up!</string>
     <string name="skipped_label">Skipped</string>
+    <string name="navigator">Navigator</string>
+    <string name="navigator_title">QUESTION NAVIGATOR</string>
 
     <!-- Result Screen -->
     <string name="quiz_complete">QUIZ COMPLETE</string>
@@ -71,8 +96,17 @@
     <string name="flagged_count">🚩 Flagged</string>
     <string name="review_answers">Review Answers</string>
     <string name="flagged_questions">Flagged Questions</string>
+    <string name="practice_wrong">Practice Wrong Answers</string>
     <string name="play_again">Play Again</string>
     <string name="home">Home</string>
+    <string name="perfect_score_title">PERFECT SCORE!</string>
+    <string name="no_practice_needed">No practice needed.</string>
+    <string name="wrong_count_format">You got %1$d questions wrong.</string>
+
+    <!-- Practice Mode -->
+    <string name="practice_mode">PRACTICE MODE</string>
+    <string name="practice_complete">PRACTICE COMPLETE</string>
+    <string name="back_to_results">Back to Results</string>
 
     <!-- Review Screen -->
     <string name="answer_review">ANSWER REVIEW</string>
@@ -89,11 +123,29 @@
     <string name="no_flagged">No flagged questions</string>
     <string name="question_number">Question %1$d</string>
 
+    <!-- Bookmarks Screen -->
+    <string name="bookmarks_title">BOOKMARKS</string>
+    <string name="saved_questions">Saved Questions</string>
+    <string name="no_bookmarks">No bookmarked questions</string>
+    <string name="clear_bookmarks">Clear All</string>
+    <string name="confirm_clear_bookmarks">Remove all bookmarks?</string>
+
     <!-- History Screen -->
     <string name="quiz_history_title">QUIZ HISTORY</string>
     <string name="no_history">No quiz history yet</string>
     <string name="clear_history">Clear History</string>
     <string name="confirm_clear">Are you sure you want to clear all quiz history?</string>
+
+    <!-- Statistics Screen -->
+    <string name="statistics_title">YOUR STATISTICS</string>
+    <string name="questions_answered">QUESTIONS ANSWERED</string>
+    <string name="correct_answers">CORRECT</string>
+    <string name="wrong_answers">WRONG</string>
+    <string name="skipped_answers">SKIPPED</string>
+    <string name="avg_score">AVERAGE SCORE</string>
+    <string name="category_performance">CATEGORY PERFORMANCE</string>
+    <string name="recent_performance">RECENT PERFORMANCE</string>
+    <string name="no_data">No data yet</string>
 
     <!-- Achievements Screen -->
     <string name="achievements_title">ACHIEVEMENTS</string>
@@ -101,7 +153,7 @@
     <string name="first_quiz_desc">Complete your first quiz</string>
     <string name="hot_streak_title">Hot Streak</string>
     <string name="hot_streak_desc">Get 5 correct answers in a row</string>
-    <string name="perfect_score_title">Perfect Score</string>
+    <string name="perfect_score_title_ach">Perfect Score</string>
     <string name="perfect_score_desc">Answer every question correctly</string>
     <string name="quiz_master_title">Quiz Master</string>
     <string name="quiz_master_desc">Complete 10 quizzes</string>
@@ -119,6 +171,8 @@
     <string name="on">ON</string>
     <string name="off">OFF</string>
     <string name="seconds_format">%1$d sec</string>
+    <string name="reset_data">Reset All Data</string>
+    <string name="confirm_reset">This will erase all history, stats, bookmarks, and achievements. Continue?</string>
 
     <!-- Errors -->
     <string name="loading">Loading questions…</string>
@@ -131,4 +185,8 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="done">Done</string>
+
+    <!-- Daily Challenge -->
+    <string name="daily_complete_title">DAILY CHALLENGE COMPLETE</string>
 </resources>
