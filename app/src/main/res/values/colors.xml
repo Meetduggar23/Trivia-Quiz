@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Trivia Quiz Pink + Brown Theme Colors -->
+    <color name="primary_pink">#D86B8A</color>
+    <color name="primary_dark">#A94362</color>
+    <color name="warm_brown">#795548</color>
+    <color name="chocolate_brown">#3E2723</color>
+    <color name="soft_cream">#FFF8F5</color>
+    <color name="card_white">#FFFFFF</color>
+    <color name="correct_green">#4CAF50</color>
+    <color name="wrong_red">#D9534F</color>
+    <color name="transparent">#00000000</color>
+</resources>

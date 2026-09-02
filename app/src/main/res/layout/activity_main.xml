@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF8F5"
+    android:fillViewport="true"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- ==================== LOADING STATE ==================== -->
+        <LinearLayout
+            android:id="@+id/loadingGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- App Logo -->
+            <ImageView
+                android:id="@+id/logoImage"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginBottom="24dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/logo"
+                app:layout_constraintBottom_toTopOf="@id/loadingGroup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Trivia Quiz"
+                android:textColor="#3E2723"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/loadingMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="Loading questions..."
+                android:textColor="#795548"
+                android:textSize="16sp" />
+
+            <ProgressBar
+                android:id="@+id/loadingProgressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminateTint="#D86B8A" />
+
+        </LinearLayout>
+
+        <!-- ==================== ERROR STATE ==================== -->
+        <LinearLayout
+            android:id="@+id/errorGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="Error"
+                android:src="@drawable/ic_launcher_foreground"
+                app:tint="#D9534F" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Something went wrong"
+                android:textColor="#3E2723"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/errorMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:text="Unable to load trivia questions."
+                android:textColor="#795548"
+                android:textSize="16sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retryButton"
+                android:layout_width="200dp"
+                android:layout_height="52dp"
+                android:text="Retry"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="#D86B8A"
+                app:cornerRadius="26dp" />
+
+        </LinearLayout>
+
+        <!-- ==================== QUIZ STATE ==================== -->
+        <LinearLayout
+            android:id="@+id/quizGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Logo at top during quiz -->
+            <ImageView
+                android:id="@+id/quizLogoImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/logo" />
+
+            <!-- Question Progress: "Question 1 of 10" -->
+            <TextView
+                android:id="@+id/questionProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textColor="#795548"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="QUESTION 1 OF 10" />
+
+            <!-- White card for question -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <TextView
+                    android:id="@+id/questionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="24dp"
+                    android:gravity="center"
+                    android:textColor="#3E2723"
+                    android:textSize="20sp"
+                    android:lineSpacingMultiplier="1.3"
+                    tools:text="Which planet is known as the Red Planet?" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Answer Button 1 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton1"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="12dp"
+                android:textColor="#3E2723"
+                android:textSize="16sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="#D86B8A"
+                app:strokeWidth="2dp"
+                tools:text="Earth" />
+
+            <!-- Answer Button 2 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton2"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="12dp"
+                android:textColor="#3E2723"
+                android:textSize="16sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="#D86B8A"
+                app:strokeWidth="2dp"
+                tools:text="Mars" />
+
+            <!-- Answer Button 3 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton3"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="12dp"
+                android:textColor="#3E2723"
+                android:textSize="16sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="#D86B8A"
+                app:strokeWidth="2dp"
+                tools:text="Jupiter" />
+
+            <!-- Answer Button 4 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton4"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="#3E2723"
+                android:textSize="16sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="#D86B8A"
+                app:strokeWidth="2dp"
+                tools:text="Venus" />
+
+            <!-- Feedback text (Correct! / Wrong!) -->
+            <TextView
+                android:id="@+id/feedbackText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="Correct!"
+                tools:visibility="visible" />
+
+            <!-- Score Display -->
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#795548"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Score: 0" />
+
+        </LinearLayout>
+
+        <!-- ==================== RESULT STATE ==================== -->
+        <LinearLayout
+            android:id="@+id/resultGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Quiz Complete!"
+                android:textColor="#3E2723"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/finalScoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:textColor="#795548"
+                android:textSize="20sp"
+                tools:text="You scored 8 out of 10" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/playAgainButton"
+                android:layout_width="220dp"
+                android:layout_height="52dp"
+                android:text="Play Again"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="#D86B8A"
+                app:cornerRadius="26dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
