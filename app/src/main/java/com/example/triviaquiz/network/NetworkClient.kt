@@ -16,9 +16,6 @@ object NetworkClient {
     // Base URL for Open Trivia DB API
     private const val BASE_URL = "https://opentdb.com"
 
-    // Full endpoint for fetching 10 multiple-choice trivia questions
-    private const val API_ENDPOINT = "/api.php?amount=10&type=multiple"
-
     // Timeout values in milliseconds
     private const val CONNECT_TIMEOUT = 15000
     private const val READ_TIMEOUT = 15000
@@ -27,14 +24,15 @@ object NetworkClient {
      * Performs a GET request to the Open Trivia DB API and returns the response as a string.
      * Demonstrates: HttpURLConnection, InputStream, InputStreamReader, BufferedReader, StringBuilder.
      *
+     * @param queryPath The API query path (e.g., "/api.php?amount=10&type=multiple")
      * @return NetworkResult containing the JSON response string or an error message
      */
-    fun get(): NetworkResult<String> {
+    fun get(queryPath: String): NetworkResult<String> {
         var connection: HttpURLConnection? = null
 
         try {
             // Build the full URL
-            val url = URL(BASE_URL + API_ENDPOINT)
+            val url = URL(BASE_URL + queryPath)
 
             // Open the HTTP connection and configure it
             connection = url.openConnection() as HttpURLConnection

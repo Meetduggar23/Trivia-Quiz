@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
+    implementation(libs.androidx.cardview)
 
     // Kotlin Coroutines for background networking
     implementation(libs.kotlinx.coroutines.android)
