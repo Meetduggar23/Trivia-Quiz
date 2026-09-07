@@ -1,7 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Night theme matches day theme — the app uses hardcoded light colors throughout -->
     <style name="Base.Theme.TriviaQuiz" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/primary_pink</item>
+        <item name="colorOnPrimary">@color/card_white</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorSecondary">@color/primary_pink</item>
+        <item name="android:windowBackground">@color/soft_cream</item>
+        <item name="android:statusBarColor">@color/soft_cream</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

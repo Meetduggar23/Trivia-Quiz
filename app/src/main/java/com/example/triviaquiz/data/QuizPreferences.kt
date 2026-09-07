@@ -125,9 +125,9 @@ class QuizPreferences(context: Context) {
     }
 
     fun getAverageScore(): Float {
-        val played = getQuizzesPlayed()
-        if (played == 0) return 0f
-        return getTotalCorrect().toFloat() / played
+        val total = getTotalQuestionsAnswered()
+        if (total == 0) return 0f
+        return (getTotalCorrect().toFloat() / total) * 10f
     }
 
     // ==================== CATEGORY PERFORMANCE ====================
@@ -252,11 +252,15 @@ class QuizPreferences(context: Context) {
     }
 
     private fun checkLevelUp() {
-        val xp = prefs.getInt("xp", 0)
-        val level = getLevel()
-        val required = level * 500
-        if (xp >= required) {
-            prefs.edit().putInt("level", level + 1).apply()
+        var xp = getXP()
+        var level = getLevel()
+        var required = level * 500
+        while (xp >= required) {
+            level++
+            required = level * 500
+        }
+        if (level > getLevel()) {
+            prefs.edit().putInt("level", level).apply()
         }
     }
 
@@ -271,7 +275,7 @@ class QuizPreferences(context: Context) {
         val nextLevelXP = getLevel() * 500
         val progressXP = xp - currentLevelXP
         val needed = nextLevelXP - currentLevelXP
-        return if (needed > 0) (progressXP * 100) / needed else 100
+        return if (needed > 0) ((progressXP * 100) / needed).coerceIn(0, 100) else 100
     }
 
     // ==================== RESUME QUIZ SESSION ====================

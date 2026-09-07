@@ -20,7 +20,8 @@ object NetworkUtils {
     fun isInternetAvailable(context: Context): Boolean {
         // Get the ConnectivityManager system service
         val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+                ?: return false
 
         // Get the active network (may be null if no network is connected)
         val activeNetwork = connectivityManager.activeNetwork ?: return false
