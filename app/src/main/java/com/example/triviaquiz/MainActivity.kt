@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() { if (qOn) lvd() else finish() }
         })
-        if(prefs.hasActiveQuizSession()) { val ss_ = prefs.getQuizSession()!!; DialogHelper.showResumeQuiz(this,ss_.category,ss_.difficulty,ss_.currentIndex,ss_.count, { resume(ss_) }, { prefs.clearQuizSession(); show("home") }) } else show("home")
+        if(prefs.hasActiveQuizSession()) { val ss_ = prefs.getQuizSession(); if(ss_!=null) DialogHelper.showResumeQuiz(this,ss_.category,ss_.difficulty,ss_.currentIndex,ss_.count, { resume(ss_) }, { prefs.clearQuizSession(); show("home") }) else { prefs.clearQuizSession(); show("home") } } else show("home")
     }
 
     private fun setupH() {
@@ -153,7 +153,7 @@ class MainActivity : AppCompatActivity() {
             setOnClickListener{idx=i;dq(true);b.navigatorGrid.visibility=View.GONE}};row.addView(t);if((i+1)%cols==0||i==qs.size-1){b.navigatorGrid.addView(row);row=LinearLayout(this).apply{orientation=LinearLayout.HORIZONTAL}}} }
 
     private fun uLL() { b.lifelineFiftyFifty.isEnabled=f50;b.lifelineFiftyFifty.alpha=if(f50)1f else 0.4f;b.lifelineSkip.isEnabled=skp;b.lifelineSkip.alpha=if(skp)1f else 0.4f;b.lifelineAddTime.isEnabled=addT;b.lifelineAddTime.alpha=if(addT)1f else 0.4f }
-    private fun use50() { if(!f50)return;val s=ss[idx];if(s.isAnswered||s.isFiftyFiftyUsed)return;f50=false;s.isFiftyFiftyUsed=true;s.eliminatedAnswers=qs[idx].answers.filter{it!=qs[idx].correctAnswer}.shuffled().take(2);dq() }
+    private fun use50() { if(!f50||idx !in ss.indices||idx !in qs.indices)return;val s=ss[idx];if(s.isAnswered||s.isFiftyFiftyUsed)return;f50=false;s.isFiftyFiftyUsed=true;s.eliminatedAnswers=qs[idx].answers.filter{it!=qs[idx].correctAnswer}.shuffled().take(2);dq() }
     private fun uat() { if(!addT||!prefs.isTimerEnabled())return;addT=false;tl+=10000L;kt();stTW();dq() }
     private fun stT() { kt();if(!prefs.isTimerEnabled()){b.timerText.text="--";return};tl=prefs.getTimerDuration()*1000L;stTW() }
     private fun stTW() { b.timerText.text="${tl/1000}s";tmr=object:CountDownTimer(tl,1000){override fun onTick(m:Long){tl=m;b.timerText.text="${m/1000}s"}override fun onFinish(){tl=0;tmrOn=false;b.timerText.text="0s";tu()}}.start();tmrOn=true }
