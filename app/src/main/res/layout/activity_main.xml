@@ -646,8 +646,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true">
+                android:overScrollMode="never">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -819,8 +818,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true">
+                android:overScrollMode="never">
                 <LinearLayout android:id="@+id/reviewListContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
@@ -835,8 +833,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true">
+                android:overScrollMode="never">
                 <LinearLayout android:id="@+id/flaggedListContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
@@ -850,8 +847,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true">
+                android:overScrollMode="never">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -874,8 +870,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true">
+                android:overScrollMode="never">
                 <LinearLayout android:id="@+id/bookmarksListContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
@@ -891,8 +886,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true">
+                android:overScrollMode="never">
                 <LinearLayout android:id="@+id/historyListContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
@@ -906,8 +900,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true">
+                android:overScrollMode="never">
                 <LinearLayout android:id="@+id/achievementsListContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
@@ -1005,8 +998,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true">
+                android:overScrollMode="never">
 
                 <LinearLayout
                     android:layout_width="match_parent"

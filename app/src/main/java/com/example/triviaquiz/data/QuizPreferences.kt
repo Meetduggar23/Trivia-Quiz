@@ -57,9 +57,11 @@ class QuizPreferences(context: Context) {
     }
 
     fun getQuizHistory(): List<String> {
-        val json = prefs.getString("quiz_history", "[]") ?: "[]"
-        val array = JSONArray(json)
-        return (0 until array.length()).map { array.getString(it) }
+        return try {
+            val json = prefs.getString("quiz_history", "[]") ?: "[]"
+            val array = JSONArray(json)
+            (0 until array.length()).map { array.getString(it) }
+        } catch (_: Exception) { emptyList() }
     }
 
     fun clearHistory() {
@@ -146,14 +148,16 @@ class QuizPreferences(context: Context) {
     }
 
     fun getCategoryPerformance(): Map<String, Pair<Int, Int>> {
-        val json = prefs.getString("category_performance", "{}") ?: "{}"
-        val obj = JSONObject(json)
-        val result = mutableMapOf<String, Pair<Int, Int>>()
-        for (key in obj.keys()) {
-            val entry = obj.getJSONObject(key)
-            result[key] = Pair(entry.getInt("correct"), entry.getInt("total"))
-        }
-        return result
+        return try {
+            val json = prefs.getString("category_performance", "{}") ?: "{}"
+            val obj = JSONObject(json)
+            val result = mutableMapOf<String, Pair<Int, Int>>()
+            for (key in obj.keys()) {
+                val entry = obj.getJSONObject(key)
+                result[key] = Pair(entry.getInt("correct"), entry.getInt("total"))
+            }
+            result
+        } catch (_: Exception) { emptyMap() }
     }
 
     // ==================== RECENT PERFORMANCE ====================
@@ -172,12 +176,14 @@ class QuizPreferences(context: Context) {
     }
 
     fun getRecentPerformance(): List<Pair<Int, Int>> {
-        val json = prefs.getString("recent_performance", "[]") ?: "[]"
-        val arr = JSONArray(json)
-        return (0 until arr.length()).map {
-            val obj = arr.getJSONObject(it)
-            Pair(obj.getInt("correct"), obj.getInt("total"))
-        }
+        return try {
+            val json = prefs.getString("recent_performance", "[]") ?: "[]"
+            val arr = JSONArray(json)
+            (0 until arr.length()).map {
+                val obj = arr.getJSONObject(it)
+                Pair(obj.getInt("correct"), obj.getInt("total"))
+            }
+        } catch (_: Exception) { emptyList() }
     }
 
     // ==================== BOOKMARKS ====================
@@ -213,9 +219,11 @@ class QuizPreferences(context: Context) {
     }
 
     fun getBookmarks(): List<String> {
-        val json = prefs.getString("bookmarks", "[]") ?: "[]"
-        val array = JSONArray(json)
-        return (0 until array.length()).map { array.getString(it) }
+        return try {
+            val json = prefs.getString("bookmarks", "[]") ?: "[]"
+            val array = JSONArray(json)
+            (0 until array.length()).map { array.getString(it) }
+        } catch (_: Exception) { emptyList() }
     }
 
     fun clearBookmarks() {

@@ -19,24 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TriviaQuiz">
 
-        <!-- Splash Screen — launches first, then transitions to MainActivity -->
+        <!-- Main Activity — launcher with theme-based splash screen (Android 12+) -->
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.TriviaQuiz">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Main Activity — receives user after splash -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
 
     </application>
 

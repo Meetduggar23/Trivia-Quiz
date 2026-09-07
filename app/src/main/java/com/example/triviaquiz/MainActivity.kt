@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(s: Bundle?) {
         super.onCreate(s); b = ActivityMainBinding.inflate(layoutInflater); setContentView(b.root)
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, i -> val sb = i.getInsets(WindowInsetsCompat.Type.systemBars()); v.setPadding(sb.left,sb.top,sb.right,sb.bottom); i }
-        prefs = QuizPreferences(this); snd = SoundManager(this); bm = BookmarkHelper(prefs)
+        prefs = QuizPreferences(this); snd = SoundManager(this, prefs); bm = BookmarkHelper(prefs)
         setupH(); setupQ(); setupR(); setupS(); setupP()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() { if (qOn) lvd() else finish() }
@@ -110,18 +110,71 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch { when(val r=repo.fetchQuestions(selCnt,selCat,selDiff)){is NetworkResult.Success->{initQ(r.data);show("quiz")}; is NetworkResult.Error->{b.errorMessage.text=r.message;show("error")}} } }
     private fun initQ(q: List<Question>) { qs=q; idx=0; strk=0; bst=0; ss=q.mapIndexed{i,_->QuizState(i)}.toMutableList(); f50=true; skp=true; addT=true; tl=prefs.getTimerDuration()*1000L; fa=0L; qOn=true }
 
-    private fun resume(s: QuizPreferences.QuizSessionData) { try {
-        val qa=JSONArray(s.questionsJson); qs=(0 until qa.length()).map{val o=qa.getJSONObject(it);val a=o.getJSONArray("answers");Question(o.getString("text"),o.getString("correctAnswer"),(0 until a.length()).map{a.getString(it)},o.optString("category",""),o.optString("difficulty",""))}
-        val sa=JSONArray(s.statesJson); ss=(0 until sa.length()).map{val o=sa.getJSONObject(it);val e=o.optJSONArray("eliminatedAnswers");val sig=o.opt("selectedAnswer");QuizState(it,if(sig==null||sig==JSONObject.NULL)null else sig.toString(),o.optBoolean("isAnswered"),o.optBoolean("isCorrect"),o.optBoolean("isWrong"),o.optBoolean("isSkipped"),o.optBoolean("isFlagged"),o.optBoolean("isBookmarked"),if(e!=null)(0 until e.length()).map{e.getString(it)}else emptyList(),o.optBoolean("isFiftyFiftyUsed"))}.toMutableList()
-        idx=s.currentIndex; strk=s.streak; bst=s.bestStreak; f50=!s.fiftyFiftyUsed; skp=!s.skipUsed; addT=!s.addTimeUsed; tl=prefs.getTimerDuration()*1000L; qOn=true; fa=System.currentTimeMillis(); show("quiz")
-    } catch(_:Exception){prefs.clearQuizSession();show("home")} }
+    private fun resume(s: QuizPreferences.QuizSessionData) {
+        try {
+            if (s.questionsJson.isBlank() || s.statesJson.isBlank()) {
+                prefs.clearQuizSession()
+                show("home")
+                return
+            }
+            val qa = JSONArray(s.questionsJson)
+            if (qa.length() == 0) {
+                prefs.clearQuizSession()
+                show("home")
+                return
+            }
+            qs = (0 until qa.length()).map { i ->
+                val o = qa.getJSONObject(i)
+                val a = o.getJSONArray("answers")
+                Question(
+                    o.getString("text"),
+                    o.getString("correctAnswer"),
+                    (0 until a.length()).map { a.getString(it) },
+                    o.optString("category", ""),
+                    o.optString("difficulty", "")
+                )
+            }
+            val sa = JSONArray(s.statesJson)
+            ss = (0 until sa.length()).map { i ->
+                val o = sa.getJSONObject(i)
+                val e = o.optJSONArray("eliminatedAnswers")
+                val sig = o.opt("selectedAnswer")
+                QuizState(
+                    i,
+                    if (sig == null || sig == JSONObject.NULL) null else sig.toString(),
+                    o.optBoolean("isAnswered", false),
+                    o.optBoolean("isCorrect", false),
+                    o.optBoolean("isWrong", false),
+                    o.optBoolean("isSkipped", false),
+                    o.optBoolean("isFlagged", false),
+                    o.optBoolean("isBookmarked", false),
+                    if (e != null) (0 until e.length()).map { j -> e.getString(j) } else emptyList(),
+                    o.optBoolean("isFiftyFiftyUsed", false)
+                )
+            }.toMutableList()
+            idx = s.currentIndex
+            strk = s.streak
+            bst = s.bestStreak
+            f50 = !s.fiftyFiftyUsed
+            skp = !s.skipUsed
+            addT = !s.addTimeUsed
+            tl = prefs.getTimerDuration() * 1000L
+            qOn = true
+            fa = System.currentTimeMillis()
+            show("quiz")
+        } catch (e: Exception) {
+            prefs.clearQuizSession()
+            show("home")
+        }
+    }
     private fun sv() { if(!qOn||qs.isEmpty())return; try {
         val qa=JSONArray(); qs.forEach{q->qa.put(JSONObject().apply{put("text",q.text);put("correctAnswer",q.correctAnswer);put("answers",JSONArray(q.answers));put("category",q.category);put("difficulty",q.difficulty)})}
         val sa=JSONArray(); ss.forEach{s_->sa.put(JSONObject().apply{put("selectedAnswer",s_.selectedAnswer?:JSONObject.NULL);put("isAnswered",s_.isAnswered);put("isCorrect",s_.isCorrect);put("isWrong",s_.isWrong);put("isSkipped",s_.isSkipped);put("isFlagged",s_.isFlagged);put("isBookmarked",s_.isBookmarked);put("eliminatedAnswers",JSONArray(s_.eliminatedAnswers));put("isFiftyFiftyUsed",s_.isFiftyFiftyUsed)})}
         prefs.saveQuizSession(qa.toString(),sa.toString(),idx,strk,bst,!f50,!skp,!addT,b.categorySpinner.selectedItem?.toString()?:"Any Category",b.difficultySpinner.selectedItem?.toString()?:"Any Difficulty",qs.size)
     } catch(_:Exception){} }
     private fun lvd() { DialogHelper.showLeaveQuiz(this,{},{kt();sv();qOn=false;show("home")}) }
-    override fun onPause() { super.onPause(); if(qOn&&qs.isNotEmpty())sv() }
+    override fun onPause() { super.onPause(); if(qOn&&qs.isNotEmpty()){kt();sv()} }
+    override fun onResume() { super.onResume(); if(qOn&&idx in ss.indices&&!ss[idx].isAnswered) stT() }
 
     private fun dq(restartTimer: Boolean = false) { if(qs.isEmpty()||idx!in qs.indices)return; val q=qs[idx]; val s=ss[idx]
         b.questionProgress.text="QUESTION ${idx+1} / ${qs.size}"; b.quizProgressBar.max=qs.size; b.quizProgressBar.progress=idx+1
@@ -140,7 +193,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun ans(i: Int) { if(idx !in qs.indices||idx !in ss.indices)return;val q=qs[idx]; val s=ss[idx]; if(s.isAnswered)return; val a=q.answers[i]; val c=a==q.correctAnswer; s.selectedAnswer=a;s.isAnswered=true;s.isCorrect=c;s.isWrong=!c;kt()
         if(fa==0L)fa=System.currentTimeMillis(); if(c){strk++;if(strk>bst)bst=strk;snd.playCorrectSound();snd.vibrate(true)}else{strk=0;snd.playWrongSound();snd.vibrate(false)};dq() }
-    private fun usk() { if(!skp)return; val s=ss[idx];if(s.isAnswered)return;skp=false;s.isAnswered=true;s.isSkipped=true;s.selectedAnswer=null;strk=0;kt();dq() }
+    private fun usk() { if(!skp||idx !in ss.indices)return; val s=ss[idx];if(s.isAnswered)return;skp=false;s.isAnswered=true;s.isSkipped=true;s.selectedAnswer=null;strk=0;kt();dq() }
     private fun tu() { if(idx !in ss.indices)return;val s=ss[idx];if(s.isAnswered)return;s.isAnswered=true;s.isWrong=true;s.selectedAnswer=null;strk=0;dq() }
     private fun pv() { if(idx>0){kt();idx--;dq(true);b.navigatorGrid.visibility=View.GONE} }
     private fun nx() { if(idx<qs.size-1){kt();idx++;dq(true);b.navigatorGrid.visibility=View.GONE}else{kt();finQ()} }

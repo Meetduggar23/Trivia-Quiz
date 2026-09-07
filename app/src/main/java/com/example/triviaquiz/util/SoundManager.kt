@@ -13,9 +13,8 @@ import com.example.triviaquiz.data.QuizPreferences
  * Manages sound and vibration feedback for the quiz.
  * Respects user settings from QuizPreferences.
  */
-class SoundManager(private val context: Context) {
+class SoundManager(private val context: Context, private val prefs: QuizPreferences) {
 
-    private val prefs = QuizPreferences(context)
     private var toneGenerator: ToneGenerator? = null
 
     init {
