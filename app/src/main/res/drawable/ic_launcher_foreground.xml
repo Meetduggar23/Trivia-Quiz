@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Adaptive icon foreground: centers appicon2.png within the 108dp canvas.
+<!-- Adaptive icon foreground: centers appicon.png within the 108dp canvas.
      The visible safe zone is the center 66% (72dp), so the logo is centered
-     and any edges beyond the mask are clipped cleanly. -->
+     and any edges beyond the launcher mask are clipped cleanly. -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/logo"
