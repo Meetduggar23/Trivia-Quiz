@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="appicon.png" alt="Trivia Quiz Logo" width="150" />
+<img src="appicon2.png" alt="Trivia Quiz Logo" width="150" />
 
 # Trivia Quiz
 
