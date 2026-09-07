@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun load() { show("loading"); if(!NetworkUtils.isInternetAvailable(this)){b.errorMessage.text="No internet connection.";show("error");return}
         lifecycleScope.launch { when(val r=repo.fetchQuestions(selCnt,selCat,selDiff)){is NetworkResult.Success->{initQ(r.data);show("quiz")}; is NetworkResult.Error->{b.errorMessage.text=r.message;show("error")}} } }
-    private fun initQ(q: List<Question>) { qs=q; idx=0; strk=0; bst=0; ss=q.mapIndexed{i,_->QuizState(i)}.toMutableList(); f50=true; skp=true; addT=true; tl=prefs.getTimerDuration()*1000L; fa=System.currentTimeMillis(); qOn=true }
+    private fun initQ(q: List<Question>) { qs=q; idx=0; strk=0; bst=0; ss=q.mapIndexed{i,_->QuizState(i)}.toMutableList(); f50=true; skp=true; addT=true; tl=prefs.getTimerDuration()*1000L; fa=0L; qOn=true }
 
     private fun resume(s: QuizPreferences.QuizSessionData) { try {
         val qa=JSONArray(s.questionsJson); qs=(0 until qa.length()).map{val o=qa.getJSONObject(it);val a=o.getJSONArray("answers");Question(o.getString("text"),o.getString("correctAnswer"),(0 until a.length()).map{a.getString(it)},o.optString("category",""),o.optString("difficulty",""))}
