@@ -5,20 +5,10 @@ import android.content.SharedPreferences
 import org.json.JSONArray
 import org.json.JSONObject
 
-/**
- * Manages all local storage using SharedPreferences:
- * - Quiz history, best score, quizzes played
- * - Statistics, category performance, recent performance
- * - Bookmarks, daily challenge, XP/level
- * - Achievements, settings
- * - Resume quiz session
- */
 class QuizPreferences(context: Context) {
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("trivia_quiz_prefs", Context.MODE_PRIVATE)
-
-    // ==================== QUIZ HISTORY ====================
 
     fun saveQuizResult(
         category: String,
@@ -47,7 +37,6 @@ class QuizPreferences(context: Context) {
         if (history.size > 50) history.subList(50, history.size).clear()
         prefs.edit().putString("quiz_history", JSONArray(history).toString()).apply()
 
-        // Update stats
         updateBestScore(correct, totalQuestions)
         incrementQuizzesPlayed()
         addStats(totalQuestions, correct, wrong, skipped, bestStreak, category)
@@ -80,8 +69,6 @@ class QuizPreferences(context: Context) {
             .apply()
     }
 
-    // ==================== BEST SCORE ====================
-
     private fun updateBestScore(correct: Int, total: Int) {
         val currentBest = prefs.getInt("best_score", 0)
         val currentBestTotal = prefs.getInt("best_total", 0)
@@ -93,15 +80,11 @@ class QuizPreferences(context: Context) {
     fun getBestScore(): Int = prefs.getInt("best_score", 0)
     fun getBestTotal(): Int = prefs.getInt("best_total", 0)
 
-    // ==================== QUIZZES PLAYED ====================
-
     private fun incrementQuizzesPlayed() {
         prefs.edit().putInt("quizzes_played", prefs.getInt("quizzes_played", 0) + 1).apply()
     }
 
     fun getQuizzesPlayed(): Int = prefs.getInt("quizzes_played", 0)
-
-    // ==================== STATISTICS ====================
 
     private fun addStats(questions: Int, correct: Int, wrong: Int, skipped: Int, streak: Int, category: String) {
         val e = prefs.edit()
@@ -132,8 +115,6 @@ class QuizPreferences(context: Context) {
         return (getTotalCorrect().toFloat() / total) * 10f
     }
 
-    // ==================== CATEGORY PERFORMANCE ====================
-
     private fun addCategoryPerformance(category: String, correct: Int, total: Int) {
         if (category == "Any Category") return
         val json = prefs.getString("category_performance", "{}") ?: "{}"
@@ -160,8 +141,6 @@ class QuizPreferences(context: Context) {
         } catch (_: Exception) { emptyMap() }
     }
 
-    // ==================== RECENT PERFORMANCE ====================
-
     private fun addRecentPerformance(correct: Int, total: Int) {
         val json = prefs.getString("recent_performance", "[]") ?: "[]"
         val arr = JSONArray(json)
@@ -186,11 +165,8 @@ class QuizPreferences(context: Context) {
         } catch (_: Exception) { emptyList() }
     }
 
-    // ==================== BOOKMARKS ====================
-
     fun saveBookmark(questionText: String, correctAnswer: String, category: String, difficulty: String, answers: List<String>) {
         val bookmarks = getBookmarks().toMutableList()
-        // Check if already bookmarked
         if (bookmarks.any { try { JSONObject(it).getString("questionText") == questionText } catch (_: Exception) { false } }) return
         val entry = JSONObject().apply {
             put("questionText", questionText)
@@ -230,8 +206,6 @@ class QuizPreferences(context: Context) {
         prefs.edit().remove("bookmarks").apply()
     }
 
-    // ==================== DAILY CHALLENGE ====================
-
     fun getDailyChallengeDate(): String = prefs.getString("daily_date", "") ?: ""
 
     fun setDailyChallengeComplete(score: Int, total: Int) {
@@ -250,8 +224,6 @@ class QuizPreferences(context: Context) {
 
     fun getDailyScore(): Int = prefs.getInt("daily_score", 0)
     fun getDailyTotal(): Int = prefs.getInt("daily_total", 0)
-
-    // ==================== XP AND LEVEL ====================
 
     private fun addXP(amount: Int) {
         val current = prefs.getInt("xp", 0)
@@ -285,8 +257,6 @@ class QuizPreferences(context: Context) {
         val needed = nextLevelXP - currentLevelXP
         return if (needed > 0) ((progressXP * 100) / needed).coerceIn(0, 100) else 100
     }
-
-    // ==================== RESUME QUIZ SESSION ====================
 
     fun saveQuizSession(
         questionsJson: String,
@@ -354,8 +324,6 @@ class QuizPreferences(context: Context) {
         val count: Int
     )
 
-    // ==================== ACHIEVEMENTS ====================
-
     private val achievementKeys = setOf(
         "first_quiz", "hot_streak", "perfect_score", "quiz_master", "fast_thinker"
     )
@@ -372,8 +340,6 @@ class QuizPreferences(context: Context) {
         return achievementKeys.filter { prefs.getBoolean("achievement_$it", false) }.toSet()
     }
 
-    // ==================== SETTINGS ====================
-
     fun isSoundEnabled(): Boolean = prefs.getBoolean("setting_sound", true)
     fun setSoundEnabled(enabled: Boolean) { prefs.edit().putBoolean("setting_sound", enabled).apply() }
 
@@ -385,8 +351,6 @@ class QuizPreferences(context: Context) {
 
     fun getTimerDuration(): Int = prefs.getInt("setting_timer_duration", 20)
     fun setTimerDuration(seconds: Int) { prefs.edit().putInt("setting_timer_duration", seconds).apply() }
-
-    // ==================== RESET ALL ====================
 
     fun resetAll() {
         prefs.edit().clear().apply()

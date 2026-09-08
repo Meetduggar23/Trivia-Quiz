@@ -2,11 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Internet permission — required for network requests -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Network state permission — required for connectivity check -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- Vibration permission — required for haptic feedback on quiz answers -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -19,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TriviaQuiz">
 
-        <!-- Main Activity — launcher with theme-based splash screen (Android 12+) -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

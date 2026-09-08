@@ -5,29 +5,18 @@ import com.example.triviaquiz.model.Question
 import org.json.JSONArray
 import org.json.JSONObject
 
-/**
- * Parses JSON responses from Open Trivia DB using ONLY org.json library.
- * Demonstrates: JSONObject, JSONArray, nested JSONArray parsing, and HTML entity decoding.
- */
 object JsonParser {
 
-    /**
-     * Parses the complete API response JSON string into a list of Question objects.
-     */
     fun parseQuestions(json: String): List<Question> {
-        // Step 1: Create a JSONObject from the complete response string
         val jsonObject = JSONObject(json)
 
-        // Step 2: Read the response_code field — must be 0 for success
         val responseCode = jsonObject.getInt("response_code")
         if (responseCode != 0) {
             throw Exception("API error: response_code = $responseCode")
         }
 
-        // Step 3: Read the "results" JSON array containing all questions
         val resultsArray: JSONArray = jsonObject.getJSONArray("results")
 
-        // Step 4: Loop through each item in the results array
         val questions = mutableListOf<Question>()
 
         for (i in 0 until resultsArray.length()) {
@@ -38,7 +27,6 @@ object JsonParser {
             val category = decodeHtml(questionObject.optString("category", ""))
             val difficulty = decodeHtml(questionObject.optString("difficulty", ""))
 
-            // Read the nested "incorrect_answers" JSON array
             val incorrectAnswersArray: JSONArray = questionObject.getJSONArray("incorrect_answers")
 
             val answers = mutableListOf<String>()
@@ -46,7 +34,6 @@ object JsonParser {
                 answers.add(decodeHtml(incorrectAnswersArray.getString(j)))
             }
 
-            // Add correct answer and shuffle
             answers.add(correctAnswer)
             answers.shuffle()
 

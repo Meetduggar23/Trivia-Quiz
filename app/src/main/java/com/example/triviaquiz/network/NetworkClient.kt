@@ -6,27 +6,13 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-/**
- * Network client that performs raw HTTP requests using ONLY HttpURLConnection.
- * No third-party networking libraries (Retrofit, OkHttp, etc.) are used.
- * This demonstrates fundamental Android networking concepts.
- */
 object NetworkClient {
 
-    // Base URL for Open Trivia DB API
     private const val BASE_URL = "https://opentdb.com"
 
-    // Timeout values in milliseconds
     private const val CONNECT_TIMEOUT = 15000
     private const val READ_TIMEOUT = 15000
 
-    /**
-     * Performs a GET request to the Open Trivia DB API and returns the response as a string.
-     * Demonstrates: HttpURLConnection, InputStream, InputStreamReader, BufferedReader, StringBuilder.
-     *
-     * @param queryPath The API query path (e.g., "/api.php?amount=10&type=multiple")
-     * @return NetworkResult containing the JSON response string or an error message
-     */
     fun get(queryPath: String): NetworkResult<String> {
         var connection: HttpURLConnection? = null
         var reader: BufferedReader? = null

@@ -19,13 +19,9 @@ android {
     buildTypes {
         release {
             isDebuggable = false
-            // Enable R8 full-mode shrinking/obfuscation for a production-ready, smaller APK.
-            // Keep-rule files under src/main/keepRules are picked up automatically by AGP.
             optimization {
                 enable = true
             }
-            // Sign the release build with the debug keystore so it can be tested locally.
-            // Replace with a real signing config before publishing to the Play Store.
             signingConfig = signingConfigs.getByName("debug")
         }
         debug {
@@ -39,7 +35,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    // Enable View Binding — generates ActivityMainBinding class
     buildFeatures {
         viewBinding = true
     }
@@ -53,10 +48,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.cardview)
 
-    // Kotlin Coroutines for background networking
     implementation(libs.kotlinx.coroutines.android)
 
-    // Lifecycle runtime for lifecycleScope.launch
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     testImplementation(libs.junit)

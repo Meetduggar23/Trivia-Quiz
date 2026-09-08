@@ -5,9 +5,6 @@ import com.example.triviaquiz.model.Question
 import org.json.JSONArray
 import org.json.JSONObject
 
-/**
- * Helper for managing bookmark operations with QuizPreferences.
- */
 class BookmarkHelper(private val prefs: QuizPreferences) {
 
     fun toggleBookmark(question: Question): Boolean {

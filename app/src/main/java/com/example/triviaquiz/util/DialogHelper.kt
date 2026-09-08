@@ -3,9 +3,6 @@ package com.example.triviaquiz.util
 import android.app.AlertDialog
 import android.content.Context
 
-/**
- * Helper for showing consistent AlertDialogs throughout the app.
- */
 object DialogHelper {
 
     fun showLeaveQuiz(

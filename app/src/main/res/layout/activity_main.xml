@@ -14,7 +14,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- ==================== HOME SCREEN ==================== -->
         <LinearLayout
             android:id="@+id/homeGroup"
             android:layout_width="match_parent"
@@ -48,7 +47,6 @@
                 android:textColor="#795548"
                 android:textSize="13sp" />
 
-            <!-- XP / Level Bar -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +81,6 @@
                 android:progressTint="#D86B8A"
                 android:progressBackgroundTint="#E0E0E0" />
 
-            <!-- Category -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +113,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Difficulty -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,7 +145,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Question Count -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -238,7 +233,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Start Quiz -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/startQuizButton"
                 android:layout_width="match_parent"
@@ -255,7 +249,6 @@
                 app:iconSize="20dp"
                 app:iconTint="@android:color/white" />
 
-            <!-- Stats Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -331,7 +324,6 @@
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-            <!-- Daily Challenge Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -397,7 +389,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Bottom Navigation - 2 rows -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -503,7 +494,6 @@
 
         </LinearLayout>
 
-        <!-- ==================== LOADING ==================== -->
         <LinearLayout
             android:id="@+id/loadingGroup"
             android:layout_width="match_parent"
@@ -543,7 +533,6 @@
                 android:indeterminateTint="#D86B8A" />
         </LinearLayout>
 
-        <!-- ==================== ERROR ==================== -->
         <LinearLayout
             android:id="@+id/errorGroup"
             android:layout_width="match_parent"
@@ -558,7 +547,6 @@
             <com.google.android.material.button.MaterialButton android:id="@+id/retryButton" android:layout_width="180dp" android:layout_height="44dp" android:text="@string/retry" android:textColor="@android:color/white" android:textSize="14sp" android:textStyle="bold" app:backgroundTint="#D86B8A" app:cornerRadius="22dp" app:icon="@drawable/ic_refresh" app:iconGravity="textStart" app:iconSize="20dp" app:iconTint="@android:color/white" />
         </LinearLayout>
 
-        <!-- ==================== QUIZ SCREEN ==================== -->
         <LinearLayout
             android:id="@+id/quizGroup"
             android:layout_width="match_parent"
@@ -567,7 +555,6 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <!-- Top Bar -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -616,7 +603,6 @@
                     app:iconTint="#795548" />
             </LinearLayout>
 
-            <!-- Progress Bar -->
             <ProgressBar
                 android:id="@+id/quizProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -628,7 +614,6 @@
                 android:progressTint="#D86B8A"
                 android:progressBackgroundTint="#E0E0E0" />
 
-            <!-- Stats Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -642,7 +627,6 @@
                 <TextView android:id="@+id/flaggedCountText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#FF9800" android:textSize="12sp" android:textStyle="bold" android:drawableStart="@drawable/ic_flag" android:drawablePadding="3dp" android:drawableTint="#FF9800" />
             </LinearLayout>
 
-            <!-- Scrollable Quiz Content -->
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -653,7 +637,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Question Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -673,16 +656,13 @@
                             android:textSize="15sp" />
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Answer Buttons -->
                     <com.google.android.material.button.MaterialButton android:id="@+id/answerButton1" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="44dp" android:layout_marginBottom="6dp" android:padding="10dp" android:textColor="#3E2723" android:textSize="13sp" app:cornerRadius="10dp" app:strokeColor="#D86B8A" app:strokeWidth="2dp" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/answerButton2" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="44dp" android:layout_marginBottom="6dp" android:padding="10dp" android:textColor="#3E2723" android:textSize="13sp" app:cornerRadius="10dp" app:strokeColor="#D86B8A" app:strokeWidth="2dp" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/answerButton3" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="44dp" android:layout_marginBottom="6dp" android:padding="10dp" android:textColor="#3E2723" android:textSize="13sp" app:cornerRadius="10dp" app:strokeColor="#D86B8A" app:strokeWidth="2dp" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/answerButton4" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="44dp" android:layout_marginBottom="6dp" android:padding="10dp" android:textColor="#3E2723" android:textSize="13sp" app:cornerRadius="10dp" app:strokeColor="#D86B8A" app:strokeWidth="2dp" />
 
-                    <!-- Feedback -->
                     <TextView android:id="@+id/feedbackText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:textSize="14sp" android:textStyle="bold" android:visibility="gone" />
 
-                    <!-- Lifelines -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -698,7 +678,6 @@
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
-            <!-- Navigator Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/navigatorButton"
                 style="@style/Widget.Material3.Button.TextButton"
@@ -713,7 +692,6 @@
                 app:iconSize="18dp"
                 app:iconTint="#795548" />
 
-            <!-- Navigator Grid (hidden by default) -->
             <LinearLayout
                 android:id="@+id/navigatorGrid"
                 android:layout_width="match_parent"
@@ -722,7 +700,6 @@
                 android:orientation="vertical"
                 android:visibility="gone" />
 
-            <!-- Navigation -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -734,7 +711,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- ==================== RESULT ==================== -->
         <LinearLayout
             android:id="@+id/resultGroup"
             android:layout_width="match_parent"
@@ -760,7 +736,6 @@
                     <TextView android:id="@+id/resultScoreLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:textColor="#D86B8A" android:textSize="32sp" android:textStyle="bold" />
                     <TextView android:id="@+id/resultPercentage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:textColor="#795548" android:textSize="14sp" />
 
-                    <!-- Stats Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -797,10 +772,8 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Practice Wrong (hidden if perfect score) -->
                     <com.google.android.material.button.MaterialButton android:id="@+id/practiceWrongButton" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginBottom="6dp" android:text="Practice Wrong Answers" android:textColor="#3E2723" android:textSize="13sp" android:visibility="gone" app:cornerRadius="10dp" app:icon="@drawable/ic_school" app:iconGravity="textStart" app:iconSize="18dp" app:iconTint="#3E2723" app:strokeColor="#D9534F" app:strokeWidth="2dp" />
 
-                    <!-- Result Buttons -->
                     <com.google.android.material.button.MaterialButton android:id="@+id/reviewButton" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginBottom="6dp" android:text="Review Answers" android:textColor="#3E2723" android:textSize="13sp" app:cornerRadius="10dp" app:icon="@drawable/ic_history" app:iconGravity="textStart" app:iconSize="18dp" app:iconTint="#3E2723" app:strokeColor="#D86B8A" app:strokeWidth="2dp" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/resultFlaggedButton" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginBottom="6dp" android:text="Flagged Questions" android:textColor="#3E2723" android:textSize="13sp" app:cornerRadius="10dp" app:icon="@drawable/ic_flag" app:iconGravity="textStart" app:iconSize="18dp" app:iconTint="#FF9800" app:strokeColor="#FF9800" app:strokeWidth="2dp" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/playAgainButton" android:layout_width="match_parent" android:layout_height="46dp" android:layout_marginBottom="6dp" android:text="Play Again" android:textColor="@android:color/white" android:textSize="14sp" android:textStyle="bold" app:backgroundTint="#D86B8A" app:cornerRadius="12dp" app:icon="@drawable/ic_play" app:iconGravity="textStart" app:iconSize="20dp" app:iconTint="@android:color/white" />
@@ -809,7 +782,6 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
-        <!-- ==================== REVIEW ==================== -->
         <LinearLayout android:id="@+id/reviewGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton android:id="@+id/reviewBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
@@ -823,7 +795,6 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
-        <!-- ==================== FLAGGED ==================== -->
         <LinearLayout android:id="@+id/flaggedGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton android:id="@+id/flaggedBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
@@ -838,7 +809,6 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
-        <!-- ==================== STATISTICS ==================== -->
         <LinearLayout android:id="@+id/statisticsGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton android:id="@+id/statisticsBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
@@ -859,7 +829,6 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
-        <!-- ==================== BOOKMARKS ==================== -->
         <LinearLayout android:id="@+id/bookmarksGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton android:id="@+id/bookmarksBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
@@ -875,7 +844,6 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
-        <!-- ==================== HISTORY ==================== -->
         <LinearLayout android:id="@+id/historyGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton android:id="@+id/historyBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
@@ -891,7 +859,6 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
-        <!-- ==================== ACHIEVEMENTS ==================== -->
         <LinearLayout android:id="@+id/achievementsGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton android:id="@+id/achievementsBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
@@ -905,34 +872,29 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
-        <!-- ==================== SETTINGS ==================== -->
         <LinearLayout android:id="@+id/settingsGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton android:id="@+id/settingsBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SETTINGS" android:textColor="#3E2723" android:textSize="15sp" android:textStyle="bold" />
             </LinearLayout>
-            <!-- Sound -->
             <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp" app:cardBackgroundColor="#FFFFFF" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:padding="12dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sound" android:textColor="#3E2723" android:textSize="14sp" android:drawableStart="@drawable/ic_sound" android:drawablePadding="8dp" android:drawableTint="#3E2723" />
                     <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/soundSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" app:thumbTint="#D86B8A" app:trackTint="#E0E0E0" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!-- Vibration -->
             <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp" app:cardBackgroundColor="#FFFFFF" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:padding="12dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Vibration" android:textColor="#3E2723" android:textSize="14sp" android:drawableStart="@drawable/ic_vibration" android:drawablePadding="8dp" android:drawableTint="#3E2723" />
                     <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/vibrationSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" app:thumbTint="#D86B8A" app:trackTint="#E0E0E0" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!-- Timer -->
             <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp" app:cardBackgroundColor="#FFFFFF" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:padding="12dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Question Timer" android:textColor="#3E2723" android:textSize="14sp" android:drawableStart="@drawable/ic_timer" android:drawablePadding="8dp" android:drawableTint="#3E2723" />
                     <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/timerSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" app:thumbTint="#D86B8A" app:trackTint="#E0E0E0" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!-- Timer Duration -->
             <androidx.cardview.widget.CardView android:id="@+id/timerDurationCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp" app:cardBackgroundColor="#FFFFFF" app:cardCornerRadius="12dp" app:cardElevation="2dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="6dp" android:text="Timer Duration" android:textColor="#3E2723" android:textSize="14sp" />
@@ -944,11 +906,9 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!-- Reset -->
             <com.google.android.material.button.MaterialButton android:id="@+id/resetDataButton" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginTop="6dp" android:text="Reset All Data" android:textColor="#D9534F" android:textSize="13sp" app:cornerRadius="10dp" app:icon="@drawable/ic_delete" app:iconGravity="textStart" app:iconSize="18dp" app:iconTint="#D9534F" app:strokeColor="#D9534F" app:strokeWidth="1dp" />
         </LinearLayout>
 
-        <!-- ==================== PRACTICE MODE ==================== -->
         <LinearLayout
             android:id="@+id/practiceGroup"
             android:layout_width="match_parent"

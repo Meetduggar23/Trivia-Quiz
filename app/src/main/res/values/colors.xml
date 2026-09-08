@@ -3,7 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Trivia Quiz Pink + Brown Theme Colors -->
     <color name="primary_pink">#D86B8A</color>
     <color name="primary_dark">#A94362</color>
     <color name="warm_brown">#795548</color>
@@ -14,7 +13,6 @@
     <color name="wrong_red">#D9534F</color>
     <color name="transparent">#00000000</color>
 
-    <!-- Muted/Disabled states -->
     <color name="pink_light">#F2D4DE</color>
     <color name="brown_light">#D7CCC8</color>
     <color name="text_secondary">#9E9E9E</color>

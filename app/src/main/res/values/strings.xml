@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Trivia Quiz</string>
 
-    <!-- Home Screen -->
     <string name="home_subtitle">Test your knowledge</string>
     <string name="start_quiz">START QUIZ</string>
     <string name="category_label">CATEGORY</string>
@@ -24,19 +23,16 @@
     <string name="level_format">LEVEL %1$d</string>
     <string name="xp_format">%1$d / %2$d XP</string>
 
-    <!-- Resume Quiz -->
     <string name="quiz_in_progress">Quiz in Progress</string>
     <string name="unfinished_quiz">You have an unfinished quiz.</string>
     <string name="resume_quiz">Resume Quiz</string>
     <string name="start_new_quiz">Start New Quiz</string>
 
-    <!-- Leave Quiz -->
     <string name="leave_quiz_title">Leave Quiz?</string>
     <string name="leave_quiz_message">Your progress will be saved.</string>
     <string name="continue_quiz">Continue Quiz</string>
     <string name="exit_quiz">Exit Quiz</string>
 
-    <!-- Categories -->
     <string name="cat_any">Any Category</string>
     <string name="cat_general">General Knowledge</string>
     <string name="cat_books">Books</string>
@@ -56,13 +52,11 @@
     <string name="cat_celebrities">Celebrities</string>
     <string name="cat_animals">Animals</string>
 
-    <!-- Difficulties -->
     <string name="diff_any">Any Difficulty</string>
     <string name="diff_easy">Easy</string>
     <string name="diff_medium">Medium</string>
     <string name="diff_hard">Hard</string>
 
-    <!-- Quiz Screen -->
     <string name="question_format">QUESTION %1$d / %2$d</string>
     <string name="score_format">Score: %1$d</string>
     <string name="streak_format">%1$d</string>
@@ -84,7 +78,6 @@
     <string name="navigator">Navigator</string>
     <string name="navigator_title">QUESTION NAVIGATOR</string>
 
-    <!-- Result Screen -->
     <string name="quiz_complete">QUIZ COMPLETE</string>
     <string name="score_out_of">%1$d / %2$d</string>
     <string name="percentage_format">%1$d%%</string>
@@ -103,12 +96,10 @@
     <string name="no_practice_needed">No practice needed.</string>
     <string name="wrong_count_format">You got %1$d questions wrong.</string>
 
-    <!-- Practice Mode -->
     <string name="practice_mode">PRACTICE MODE</string>
     <string name="practice_complete">PRACTICE COMPLETE</string>
     <string name="back_to_results">Back to Results</string>
 
-    <!-- Review Screen -->
     <string name="answer_review">ANSWER REVIEW</string>
     <string name="your_answer">Your answer:</string>
     <string name="correct_answer_label">Correct answer:</string>
@@ -118,25 +109,21 @@
     <string name="not_answered">Not answered</string>
     <string name="back_to_result">Back to Result</string>
 
-    <!-- Flagged Questions Screen -->
     <string name="flagged_questions_title">FLAGGED QUESTIONS</string>
     <string name="no_flagged">No flagged questions</string>
     <string name="question_number">Question %1$d</string>
 
-    <!-- Bookmarks Screen -->
     <string name="bookmarks_title">BOOKMARKS</string>
     <string name="saved_questions">Saved Questions</string>
     <string name="no_bookmarks">No bookmarked questions</string>
     <string name="clear_bookmarks">Clear All</string>
     <string name="confirm_clear_bookmarks">Remove all bookmarks?</string>
 
-    <!-- History Screen -->
     <string name="quiz_history_title">QUIZ HISTORY</string>
     <string name="no_history">No quiz history yet</string>
     <string name="clear_history">Clear History</string>
     <string name="confirm_clear">Are you sure you want to clear all quiz history?</string>
 
-    <!-- Statistics Screen -->
     <string name="statistics_title">YOUR STATISTICS</string>
     <string name="questions_answered">QUESTIONS ANSWERED</string>
     <string name="correct_answers">CORRECT</string>
@@ -147,7 +134,6 @@
     <string name="recent_performance">RECENT PERFORMANCE</string>
     <string name="no_data">No data yet</string>
 
-    <!-- Achievements Screen -->
     <string name="achievements_title">ACHIEVEMENTS</string>
     <string name="first_quiz_title">First Quiz</string>
     <string name="first_quiz_desc">Complete your first quiz</string>
@@ -162,7 +148,6 @@
     <string name="unlocked">Unlocked</string>
     <string name="locked">Locked</string>
 
-    <!-- Settings Screen -->
     <string name="settings_title">SETTINGS</string>
     <string name="sound_setting">Sound</string>
     <string name="vibration_setting">Vibration</string>
@@ -174,19 +159,16 @@
     <string name="reset_data">Reset All Data</string>
     <string name="confirm_reset">This will erase all history, stats, bookmarks, and achievements. Continue?</string>
 
-    <!-- Errors -->
     <string name="loading">Loading questions…</string>
     <string name="error_title">Something went wrong</string>
     <string name="error_message">Unable to load trivia questions.</string>
     <string name="retry">Retry</string>
     <string name="no_internet">No internet connection. Please check your network settings.</string>
 
-    <!-- Confirmations -->
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="done">Done</string>
 
-    <!-- Daily Challenge -->
     <string name="daily_complete_title">DAILY CHALLENGE COMPLETE</string>
 </resources>
