@@ -8,7 +8,6 @@ data class QuizState(
     var isWrong: Boolean = false,
     var isSkipped: Boolean = false,
     var isFlagged: Boolean = false,
-    var isBookmarked: Boolean = false,
     var eliminatedAnswers: List<String> = emptyList(),
     var isFiftyFiftyUsed: Boolean = false
 )

@@ -432,49 +432,6 @@
                     app:strokeWidth="1dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/bookmarksHomeButton"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
-                    android:text="Bookmarks"
-                    android:textColor="#3E2723"
-                    android:textSize="11sp"
-                    app:cornerRadius="10dp"
-                    app:icon="@drawable/ic_bookmarks"
-                    app:iconGravity="textStart"
-                    app:iconSize="16dp"
-                    app:iconTint="#3E2723"
-                    app:strokeColor="#E0E0E0"
-                    app:strokeWidth="1dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/achievementsButton"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_weight="1"
-                    android:text="Achievements"
-                    android:textColor="#3E2723"
-                    android:textSize="11sp"
-                    app:cornerRadius="10dp"
-                    app:icon="@drawable/ic_trophy"
-                    app:iconGravity="textStart"
-                    app:iconSize="16dp"
-                    app:iconTint="#3E2723"
-                    app:strokeColor="#E0E0E0"
-                    app:strokeWidth="1dp" />
-            </LinearLayout>
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/settingsButton"
                 style="@style/Widget.Material3.Button.OutlinedButton"
@@ -589,16 +546,6 @@
                     android:layout_height="34dp"
                     android:contentDescription="Flag question"
                     app:icon="@drawable/ic_flag"
-                    app:iconSize="22dp"
-                    app:iconTint="#795548" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/bookmarkButton"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="34dp"
-                    android:contentDescription="Bookmark question"
-                    app:icon="@drawable/ic_bookmark"
                     app:iconSize="22dp"
                     app:iconTint="#795548" />
             </LinearLayout>
@@ -829,21 +776,6 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/bookmarksGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
-                <com.google.android.material.button.MaterialButton android:id="@+id/bookmarksBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="BOOKMARKS" android:textColor="#3E2723" android:textSize="15sp" android:textStyle="bold" />
-                <com.google.android.material.button.MaterialButton android:id="@+id/clearBookmarksButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:text="Clear All" android:textColor="#D9534F" android:textSize="11sp" app:icon="@drawable/ic_delete" app:iconGravity="textStart" app:iconSize="16dp" app:iconTint="#D9534F" />
-            </LinearLayout>
-            <TextView android:id="@+id/bookmarksEmptyText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="24dp" android:text="No bookmarked questions" android:textColor="#9E9E9E" android:textSize="14sp" android:visibility="gone" />
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never">
-                <LinearLayout android:id="@+id/bookmarksListContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
-            </androidx.core.widget.NestedScrollView>
-        </LinearLayout>
-
         <LinearLayout android:id="@+id/historyGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton android:id="@+id/historyBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
@@ -856,19 +788,6 @@
                 android:layout_height="wrap_content"
                 android:overScrollMode="never">
                 <LinearLayout android:id="@+id/historyListContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
-            </androidx.core.widget.NestedScrollView>
-        </LinearLayout>
-
-        <LinearLayout android:id="@+id/achievementsGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
-                <com.google.android.material.button.MaterialButton android:id="@+id/achievementsBackButton" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="34dp" android:contentDescription="Back" app:icon="@drawable/ic_arrow_back" app:iconSize="22dp" app:iconTint="#795548" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ACHIEVEMENTS" android:textColor="#3E2723" android:textSize="15sp" android:textStyle="bold" />
-            </LinearLayout>
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never">
-                <LinearLayout android:id="@+id/achievementsListContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 

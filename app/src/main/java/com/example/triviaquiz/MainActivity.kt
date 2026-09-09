@@ -22,7 +22,6 @@ import com.example.triviaquiz.model.Question
 import com.example.triviaquiz.model.QuizState
 import com.example.triviaquiz.network.NetworkResult
 import com.example.triviaquiz.network.NetworkUtils
-import com.example.triviaquiz.util.BookmarkHelper
 import com.example.triviaquiz.util.DialogHelper
 import com.example.triviaquiz.util.SoundManager
 import kotlinx.coroutines.launch
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     private val repo = QuizRepository()
     private lateinit var prefs: QuizPreferences
     private lateinit var snd: SoundManager
-    private lateinit var bm: BookmarkHelper
 
     private var selCat: Int? = null; private var selDiff: String? = null; private var selCnt = 10
     private val cn = listOf("Any Category","General Knowledge","Books","Film","Music","Television","Video Games","Science: Gadgets","Computers","Mathematics","Mythology","Sports","Geography","History","Politics","Art","Celebrities","Animals")
@@ -51,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(s: Bundle?) {
         super.onCreate(s); b = ActivityMainBinding.inflate(layoutInflater); setContentView(b.root)
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, i -> val sb = i.getInsets(WindowInsetsCompat.Type.systemBars()); v.setPadding(sb.left,sb.top,sb.right,sb.bottom); i }
-        prefs = QuizPreferences(this); snd = SoundManager(this, prefs); bm = BookmarkHelper(prefs)
+        prefs = QuizPreferences(this); snd = SoundManager(this, prefs)
         setupH(); setupQ(); setupR(); setupS(); setupP()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() { if (qOn) lvd() else finish() }
@@ -69,8 +67,8 @@ class MainActivity : AppCompatActivity() {
         b.startQuizButton.setOnClickListener { daily=false; load() }
         b.retryButton.setOnClickListener { load() }
         b.homeDailyButton.setOnClickListener { if(prefs.isDailyChallengeCompletedToday()) Toast.makeText(this,"Score: ${prefs.getDailyScore()}/${prefs.getDailyTotal()}",Toast.LENGTH_LONG).show() else { daily=true; selCat=null; selDiff="medium"; selCnt=10; load() } }
-        b.statisticsButton.setOnClickListener { show("statistics") }; b.bookmarksHomeButton.setOnClickListener { show("bookmarks") }
-        b.historyButton.setOnClickListener { show("history") }; b.achievementsButton.setOnClickListener { show("achievements") }; b.settingsButton.setOnClickListener { show("settings") }
+        b.statisticsButton.setOnClickListener { show("statistics") }
+        b.historyButton.setOnClickListener { show("history") }; b.settingsButton.setOnClickListener { show("settings") }
     }
     private fun sb(btns: List<com.google.android.material.button.MaterialButton>, s: Int) { btns.forEachIndexed { i,b -> if(i==s){b.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.primary_pink));b.setTextColor(Color.WHITE)}else{b.backgroundTintList=null;b.setBackgroundColor(Color.TRANSPARENT);b.setTextColor(getColor(R.color.chocolate_brown))} } }
     private fun rh() { b.homeBestScore.text="${prefs.getBestScore()} / ${prefs.getBestTotal()}"; b.homeQuizzesPlayed.text="${prefs.getQuizzesPlayed()}"; b.homeLevel.text="LEVEL ${prefs.getLevel()}"; b.homeXP.text="${prefs.getXP()} / ${prefs.getXPForNextLevel()} XP"; b.homeXPBar.progress=prefs.getXPProgress()
@@ -80,14 +78,12 @@ class MainActivity : AppCompatActivity() {
         listOf(b.answerButton1,b.answerButton2,b.answerButton3,b.answerButton4).forEachIndexed { i,bt -> bt.setOnClickListener { ans(i) } }
         b.previousButton.setOnClickListener { pv() }; b.nextButton.setOnClickListener { nx() }
         b.flagButton.setOnClickListener { if(idx !in ss.indices)return@setOnClickListener;ss[idx].isFlagged=!ss[idx].isFlagged; dq() }
-        b.bookmarkButton.setOnClickListener { if(idx !in qs.indices)return@setOnClickListener;val q=qs[idx]; Toast.makeText(this,if(bm.toggleBookmark(q))"Bookmarked!"else"Removed",Toast.LENGTH_SHORT).show(); dq() }
         b.quizBackButton.setOnClickListener { lvd() }; b.lifelineFiftyFifty.setOnClickListener { use50() }; b.lifelineSkip.setOnClickListener { usk() }; b.lifelineAddTime.setOnClickListener { uat() }; b.navigatorButton.setOnClickListener { tnav() }
     }
     private fun setupR() { b.reviewButton.setOnClickListener { show("review") }; b.resultFlaggedButton.setOnClickListener { show("flagged") }; b.playAgainButton.setOnClickListener { daily=false; load() }; b.homeButton.setOnClickListener { kt(); qOn=false; prefs.clearQuizSession(); show("home") }; b.practiceWrongButton.setOnClickListener { startP() } }
     private fun setupS() {
         b.historyBackButton.setOnClickListener { show("home") }; b.clearHistoryButton.setOnClickListener { DialogHelper.showConfirm(this,"Clear History","Are you sure?"){prefs.clearHistory();fH()} }
-        b.achievementsBackButton.setOnClickListener { show("home") }; b.statisticsBackButton.setOnClickListener { show("home") }; b.bookmarksBackButton.setOnClickListener { show("home") }
-        b.clearBookmarksButton.setOnClickListener { DialogHelper.showConfirm(this,"Clear Bookmarks","Remove all?"){bm.clearBookmarks();fB()} }
+        b.statisticsBackButton.setOnClickListener { show("home") }
         b.settingsBackButton.setOnClickListener { show("home") }; b.reviewBackButton.setOnClickListener { show("result") }; b.flaggedBackButton.setOnClickListener { show("quiz") }
         b.resetDataButton.setOnClickListener { DialogHelper.showConfirm(this,"Reset","Erase all?"){prefs.resetAll();Toast.makeText(this,"Cleared",Toast.LENGTH_SHORT).show()} }
         b.soundSwitch.isChecked=prefs.isSoundEnabled(); b.vibrationSwitch.isChecked=prefs.isVibrationEnabled(); b.timerSwitch.isChecked=prefs.isTimerEnabled()
@@ -99,11 +95,11 @@ class MainActivity : AppCompatActivity() {
     private fun sd(btns: List<com.google.android.material.button.MaterialButton>, s: Int) { btns.forEachIndexed { i,b -> if(i==s){b.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.primary_pink));b.setTextColor(Color.WHITE)}else{b.backgroundTintList=null;b.setBackgroundColor(Color.TRANSPARENT);b.setTextColor(getColor(R.color.chocolate_brown))} } }
     private fun setupP() { b.practiceBackButton.setOnClickListener { show("result") } }
 
-    private fun show(s: String) { listOf(b.homeGroup,b.loadingGroup,b.errorGroup,b.quizGroup,b.resultGroup,b.reviewGroup,b.historyGroup,b.achievementsGroup,b.settingsGroup,b.flaggedGroup,b.statisticsGroup,b.bookmarksGroup,b.practiceGroup).forEach{it.visibility=View.GONE}
+    private fun show(s: String) { listOf(b.homeGroup,b.loadingGroup,b.errorGroup,b.quizGroup,b.resultGroup,b.reviewGroup,b.historyGroup,b.settingsGroup,b.flaggedGroup,b.statisticsGroup,b.practiceGroup).forEach{it.visibility=View.GONE}
         when(s){"home"->{b.homeGroup.visibility=View.VISIBLE;rh()}; "loading"->b.loadingGroup.visibility=View.VISIBLE; "error"->b.errorGroup.visibility=View.VISIBLE
         "quiz"->{b.quizGroup.visibility=View.VISIBLE;qOn=true;dq(true)}; "result"->{b.resultGroup.visibility=View.VISIBLE;dR()}; "review"->{b.reviewGroup.visibility=View.VISIBLE;fR()}
-        "history"->{b.historyGroup.visibility=View.VISIBLE;fH()}; "achievements"->{b.achievementsGroup.visibility=View.VISIBLE;fA()}; "settings"->b.settingsGroup.visibility=View.VISIBLE
-        "flagged"->{b.flaggedGroup.visibility=View.VISIBLE;fF()}; "statistics"->{b.statisticsGroup.visibility=View.VISIBLE;fS()}; "bookmarks"->{b.bookmarksGroup.visibility=View.VISIBLE;fB()}
+        "history"->{b.historyGroup.visibility=View.VISIBLE;fH()}; "settings"->b.settingsGroup.visibility=View.VISIBLE
+        "flagged"->{b.flaggedGroup.visibility=View.VISIBLE;fF()}; "statistics"->{b.statisticsGroup.visibility=View.VISIBLE;fS()}
         "practice"->{b.practiceGroup.visibility=View.VISIBLE;dP()}} }
 
     private fun load() { show("loading"); if(!NetworkUtils.isInternetAvailable(this)){b.errorMessage.text="No internet connection.";show("error");return}
@@ -147,7 +143,6 @@ class MainActivity : AppCompatActivity() {
                     o.optBoolean("isWrong", false),
                     o.optBoolean("isSkipped", false),
                     o.optBoolean("isFlagged", false),
-                    o.optBoolean("isBookmarked", false),
                     if (e != null) (0 until e.length()).map { j -> e.getString(j) } else emptyList(),
                     o.optBoolean("isFiftyFiftyUsed", false)
                 )
@@ -169,7 +164,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun sv() { if(!qOn||qs.isEmpty())return; try {
         val qa=JSONArray(); qs.forEach{q->qa.put(JSONObject().apply{put("text",q.text);put("correctAnswer",q.correctAnswer);put("answers",JSONArray(q.answers));put("category",q.category);put("difficulty",q.difficulty)})}
-        val sa=JSONArray(); ss.forEach{s_->sa.put(JSONObject().apply{put("selectedAnswer",s_.selectedAnswer?:JSONObject.NULL);put("isAnswered",s_.isAnswered);put("isCorrect",s_.isCorrect);put("isWrong",s_.isWrong);put("isSkipped",s_.isSkipped);put("isFlagged",s_.isFlagged);put("isBookmarked",s_.isBookmarked);put("eliminatedAnswers",JSONArray(s_.eliminatedAnswers));put("isFiftyFiftyUsed",s_.isFiftyFiftyUsed)})}
+        val sa=JSONArray(); ss.forEach{s_->sa.put(JSONObject().apply{put("selectedAnswer",s_.selectedAnswer?:JSONObject.NULL);put("isAnswered",s_.isAnswered);put("isCorrect",s_.isCorrect);put("isWrong",s_.isWrong);put("isSkipped",s_.isSkipped);put("isFlagged",s_.isFlagged);put("eliminatedAnswers",JSONArray(s_.eliminatedAnswers));put("isFiftyFiftyUsed",s_.isFiftyFiftyUsed)})}
         prefs.saveQuizSession(qa.toString(),sa.toString(),idx,strk,bst,!f50,!skp,!addT,b.categorySpinner.selectedItem?.toString()?:"Any Category",b.difficultySpinner.selectedItem?.toString()?:"Any Difficulty",qs.size)
     } catch(_:Exception){} }
     private fun lvd() { DialogHelper.showLeaveQuiz(this,{},{kt();sv();qOn=false;show("home")}) }
@@ -180,7 +175,6 @@ class MainActivity : AppCompatActivity() {
         b.questionProgress.text="QUESTION ${idx+1} / ${qs.size}"; b.quizProgressBar.max=qs.size; b.quizProgressBar.progress=idx+1
         rcs(); b.scoreText.text="Score: ${cs()}"; b.streakText.text="$strk"; b.flaggedCountText.text="${ss.count{it.isFlagged}}"
         if(s.isFlagged){b.flagButton.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.flag_orange));b.flagButton.setIconTintResource(R.color.flag_orange)}else{b.flagButton.backgroundTintList=null;b.flagButton.setBackgroundColor(Color.TRANSPARENT);b.flagButton.setIconTintResource(R.color.chocolate_brown)}
-        if(bm.isBookmarked(q.text)){b.bookmarkButton.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.primary_pink));b.bookmarkButton.setIconTintResource(R.color.primary_pink)}else{b.bookmarkButton.backgroundTintList=null;b.bookmarkButton.setBackgroundColor(Color.TRANSPARENT);b.bookmarkButton.setIconTintResource(R.color.chocolate_brown)}
         b.questionText.text=q.text; val btns=listOf(b.answerButton1,b.answerButton2,b.answerButton3,b.answerButton4)
         btns.forEachIndexed{i,bt->val a=q.answers[i];bt.text=a;if(s.eliminatedAnswers.contains(a)){bt.visibility=View.INVISIBLE;bt.isEnabled=false}else{bt.visibility=View.VISIBLE;bt.isEnabled=!s.isAnswered}
             when{s.isAnswered&&a==s.selectedAnswer->{if(s.isCorrect){bt.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.correct_green));bt.setTextColor(Color.WHITE)}else{bt.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.wrong_red));bt.setTextColor(Color.WHITE)}}
@@ -216,11 +210,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun finQ(){val c=ss.count{it.isCorrect};val w=ss.count{it.isWrong};val sk=ss.count{it.isSkipped};val fl=ss.count{it.isFlagged}
         prefs.saveQuizResult(b.categorySpinner.selectedItem?.toString()?:"Any Category",b.difficultySpinner.selectedItem?.toString()?:"Any Difficulty",qs.size,c,w,sk,bst,fl);if(daily) prefs.setDailyChallengeComplete(c,qs.size)
-        ua(c,qs.size,bst);prefs.clearQuizSession();qOn=false;kt();show("result")}
+        prefs.clearQuizSession();qOn=false;kt();show("result")}
     private fun dR(){val c=ss.count{it.isCorrect};val w=ss.count{it.isWrong};val sk=ss.count{it.isSkipped};val fl=ss.count{it.isFlagged};val t=qs.size;val p=if(t>0)(c*100)/t else 0
         b.resultScoreLarge.text="$c / $t";b.resultPercentage.text="$p%";b.resultCorrectCount.text="$c";b.resultWrongCount.text="$w";b.resultSkippedCount.text="$sk";b.resultAccuracy.text="$p%";b.resultBestStreak.text="$bst";b.resultFlaggedCount.text="$fl"
         if(w>0&&!daily){b.practiceWrongButton.visibility=View.VISIBLE;b.practiceWrongButton.text="Practice $w Wrong Answers"}else b.practiceWrongButton.visibility=View.GONE}
-    private fun ua(c:Int,t:Int,s:Int){prefs.unlockAchievement("first_quiz");if(s>=5)prefs.unlockAchievement("hot_streak");if(c==t&&t>0)prefs.unlockAchievement("perfect_score");if(prefs.getQuizzesPlayed()>=10)prefs.unlockAchievement("quiz_master");val e=System.currentTimeMillis()-fa;if(e in 1..5000)prefs.unlockAchievement("fast_thinker")}
 
     private fun fR(){b.reviewListContainer.removeAllViews();qs.forEachIndexed{i,q->val s=ss[i];val card=CardView(this).apply{layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT).apply{bottomMargin=dp(8)};radius=dp(10).toFloat();cardElevation=dp(2).toFloat();setCardBackgroundColor(Color.WHITE)}
         val c=LinearLayout(this).apply{orientation=LinearLayout.VERTICAL;setPadding(dp(14),dp(12),dp(14),dp(12))};c.addView(TextView(this).apply{text=when{s.isCorrect->"CORRECT";s.isSkipped->"SKIPPED";else->"WRONG"};setTextColor(when{s.isCorrect->getColor(R.color.correct_green);s.isSkipped->getColor(R.color.skipped_gray);else->getColor(R.color.wrong_red)});textSize=13f;setTypeface(null,Typeface.BOLD)})
@@ -245,17 +238,6 @@ class MainActivity : AppCompatActivity() {
                 val c=LinearLayout(this).apply{orientation=LinearLayout.VERTICAL;setPadding(dp(12),dp(8),dp(12),dp(8))};c.addView(TextView(this).apply{text="$cat ${p.first}/${p.second}";setTextColor(getColor(R.color.chocolate_brown));textSize=13f;setTypeface(null,Typeface.BOLD)})
                 c.addView(android.widget.ProgressBar(this,null,android.R.attr.progressBarStyleHorizontal).apply{max=100;progress=pct;layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,dp(8)).apply{topMargin=dp(4)};progressTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.primary_pink));progressBackgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.card_border))})
                 card.addView(c);b.categoryPerfContainer.addView(card)}}}
-    private fun fB(){b.bookmarksListContainer.removeAllViews();val items=bm.getBookmarkedQuestions();if(items.isEmpty()){b.bookmarksEmptyText.visibility=View.VISIBLE;return};b.bookmarksEmptyText.visibility=View.GONE
-        items.forEach{item->val card=CardView(this).apply{layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT).apply{bottomMargin=dp(8)};radius=dp(10).toFloat();cardElevation=dp(2).toFloat();setCardBackgroundColor(Color.WHITE);isClickable=true;isFocusable=true}
-            val c=LinearLayout(this).apply{orientation=LinearLayout.VERTICAL;setPadding(dp(14),dp(10),dp(14),dp(10))};c.addView(TextView(this).apply{text="${item.category} • ${item.difficulty}";setTextColor(getColor(R.color.warm_brown));textSize=12f})
-            c.addView(TextView(this).apply{text=item.questionText;setTextColor(getColor(R.color.chocolate_brown));textSize=14f;setTypeface(null,Typeface.BOLD);maxLines=3;setPadding(0,dp(4),0,0)});c.addView(TextView(this).apply{text="${item.correctAnswer}";setTextColor(getColor(R.color.correct_green));textSize=13f;setPadding(0,dp(2),0,0)})
-            card.addView(c);card.setOnClickListener{val q=Question(item.questionText,item.correctAnswer,item.answers,item.category,item.difficulty);qs=listOf(q);ss=mutableListOf(QuizState(0));idx=0;f50=false;skp=false;addT=false;show("quiz")};b.bookmarksListContainer.addView(card)}}
-    private fun fA(){b.achievementsListContainer.removeAllViews()
-        listOf("first_quiz" to ("First Quiz" to "Complete your first quiz"),"hot_streak" to ("Hot Streak" to "Get 5 correct in a row"),"perfect_score" to ("Perfect Score" to "Answer every question correctly"),"quiz_master" to ("Quiz Master" to "Complete 10 quizzes"),"fast_thinker" to ("Fast Thinker" to "Answer questions quickly")).forEach{(k,t)->val u=prefs.isAchievementUnlocked(k)
-            val card=CardView(this).apply{layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT).apply{bottomMargin=dp(8)};radius=dp(10).toFloat();cardElevation=dp(2).toFloat();setCardBackgroundColor(Color.WHITE)}
-            val c=LinearLayout(this).apply{orientation=LinearLayout.VERTICAL;setPadding(dp(14),dp(10),dp(14),dp(10))};c.addView(TextView(this).apply{text=t.first;setTextColor(if(u)getColor(R.color.correct_green)else getColor(R.color.text_secondary));textSize=15f;setTypeface(null,Typeface.BOLD)})
-            c.addView(TextView(this).apply{text=t.second;setTextColor(getColor(R.color.warm_brown));textSize=12f;setPadding(0,dp(2),0,0)});c.addView(TextView(this).apply{text=if(u)"Unlocked"else"Locked";setTextColor(if(u)getColor(R.color.correct_green)else getColor(R.color.text_secondary));textSize=11f;setTypeface(null,Typeface.BOLD);setPadding(0,dp(2),0,0)})
-            card.addView(c);b.achievementsListContainer.addView(card)}}
 
     private fun startP(){pqs=qs.filterIndexed{i,_->ss[i].isWrong};if(pqs.isEmpty())return;pi=0;pc=0;pa=false;listOf(b.practiceAnswer1,b.practiceAnswer2,b.practiceAnswer3,b.practiceAnswer4).forEachIndexed{i,bt->bt.setOnClickListener{hpa(i)}};show("practice")}
     private fun dP(){if(pi>=pqs.size)return;val q=pqs[pi];pa=false;b.practiceProgress.text="PRACTICE ${pi+1} / ${pqs.size}";b.practiceProgressBar.max=pqs.size;b.practiceProgressBar.progress=pi+1;b.practiceQuestionText.text=q.text

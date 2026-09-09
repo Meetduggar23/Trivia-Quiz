@@ -165,47 +165,6 @@ class QuizPreferences(context: Context) {
         } catch (_: Exception) { emptyList() }
     }
 
-    fun saveBookmark(questionText: String, correctAnswer: String, category: String, difficulty: String, answers: List<String>) {
-        val bookmarks = getBookmarks().toMutableList()
-        if (bookmarks.any { try { JSONObject(it).getString("questionText") == questionText } catch (_: Exception) { false } }) return
-        val entry = JSONObject().apply {
-            put("questionText", questionText)
-            put("correctAnswer", correctAnswer)
-            put("category", category)
-            put("difficulty", difficulty)
-            put("answers", JSONArray(answers))
-        }
-        bookmarks.add(0, entry.toString())
-        if (bookmarks.size > 100) bookmarks.subList(100, bookmarks.size).clear()
-        prefs.edit().putString("bookmarks", JSONArray(bookmarks).toString()).apply()
-    }
-
-    fun removeBookmark(questionText: String) {
-        val bookmarks = getBookmarks().toMutableList()
-        val filtered = bookmarks.filter {
-            try { JSONObject(it).getString("questionText") != questionText } catch (_: Exception) { true }
-        }
-        prefs.edit().putString("bookmarks", JSONArray(filtered).toString()).apply()
-    }
-
-    fun isBookmarked(questionText: String): Boolean {
-        return getBookmarks().any {
-            try { JSONObject(it).getString("questionText") == questionText } catch (_: Exception) { false }
-        }
-    }
-
-    fun getBookmarks(): List<String> {
-        return try {
-            val json = prefs.getString("bookmarks", "[]") ?: "[]"
-            val array = JSONArray(json)
-            (0 until array.length()).map { array.getString(it) }
-        } catch (_: Exception) { emptyList() }
-    }
-
-    fun clearBookmarks() {
-        prefs.edit().remove("bookmarks").apply()
-    }
-
     fun getDailyChallengeDate(): String = prefs.getString("daily_date", "") ?: ""
 
     fun setDailyChallengeComplete(score: Int, total: Int) {
@@ -323,22 +282,6 @@ class QuizPreferences(context: Context) {
         val difficulty: String,
         val count: Int
     )
-
-    private val achievementKeys = setOf(
-        "first_quiz", "hot_streak", "perfect_score", "quiz_master", "fast_thinker"
-    )
-
-    fun unlockAchievement(key: String) {
-        if (key in achievementKeys) {
-            prefs.edit().putBoolean("achievement_$key", true).apply()
-        }
-    }
-
-    fun isAchievementUnlocked(key: String): Boolean = prefs.getBoolean("achievement_$key", false)
-
-    fun getUnlockedAchievements(): Set<String> {
-        return achievementKeys.filter { prefs.getBoolean("achievement_$it", false) }.toSet()
-    }
 
     fun isSoundEnabled(): Boolean = prefs.getBoolean("setting_sound", true)
     fun setSoundEnabled(enabled: Boolean) { prefs.edit().putBoolean("setting_sound", enabled).apply() }
