@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="app/src/main/res/drawable/logo.png" alt="Trivia Quiz Logo" width="150" />
+
 # Trivia Quiz
 
 A modern Android trivia quiz app built with **HttpURLConnection**, **org.json**, and **Kotlin Coroutines**.
