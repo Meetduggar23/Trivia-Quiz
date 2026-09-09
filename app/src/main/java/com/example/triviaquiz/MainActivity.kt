@@ -63,14 +63,14 @@ class MainActivity : AppCompatActivity() {
         b.difficultySpinner.adapter = android.widget.ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dn)
         b.difficultySpinner.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener { override fun onItemSelected(p: android.widget.AdapterView<*>?, v: View?, pos: Int, id: Long) { selDiff = dv[pos] }; override fun onNothingSelected(p: android.widget.AdapterView<*>?) {} }
         val cbs = listOf(b.countBtn5,b.countBtn10,b.countBtn15,b.countBtn20)
-        listOf(5,10,15,20).forEachIndexed { i,c -> cbs[i].setOnClickListener { selCnt=c; sb(cbs,i) } }
+        listOf(5,10,15,20).forEachIndexed { i,c -> cbs[i].setOnClickListener { selCnt=c; selBtn(cbs,i) } }
         b.startQuizButton.setOnClickListener { daily=false; load() }
         b.retryButton.setOnClickListener { load() }
         b.homeDailyButton.setOnClickListener { if(prefs.isDailyChallengeCompletedToday()) Toast.makeText(this,"Score: ${prefs.getDailyScore()}/${prefs.getDailyTotal()}",Toast.LENGTH_LONG).show() else { daily=true; selCat=null; selDiff="medium"; selCnt=10; load() } }
         b.statisticsButton.setOnClickListener { show("statistics") }
         b.historyButton.setOnClickListener { show("history") }; b.settingsButton.setOnClickListener { show("settings") }
     }
-    private fun sb(btns: List<com.google.android.material.button.MaterialButton>, s: Int) { btns.forEachIndexed { i,b -> if(i==s){b.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.primary_pink));b.setTextColor(Color.WHITE)}else{b.backgroundTintList=null;b.setBackgroundColor(Color.TRANSPARENT);b.setTextColor(getColor(R.color.chocolate_brown))} } }
+    private fun selBtn(btns: List<com.google.android.material.button.MaterialButton>, s: Int) { btns.forEachIndexed { i,b -> if(i==s){b.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.primary_pink));b.setTextColor(Color.WHITE)}else{b.backgroundTintList=null;b.setBackgroundColor(Color.TRANSPARENT);b.setTextColor(getColor(R.color.chocolate_brown))} } }
     private fun rh() { b.homeBestScore.text="${prefs.getBestScore()} / ${prefs.getBestTotal()}"; b.homeQuizzesPlayed.text="${prefs.getQuizzesPlayed()}"; b.homeLevel.text="LEVEL ${prefs.getLevel()}"; b.homeXP.text="${prefs.getXP()} / ${prefs.getXPForNextLevel()} XP"; b.homeXPBar.progress=prefs.getXPProgress()
         if(prefs.isDailyChallengeCompletedToday()){b.homeDailySubtitle.text="Completed";b.homeDailyScore.text="Score: ${prefs.getDailyScore()} / ${prefs.getDailyTotal()}";b.homeDailyScore.visibility=View.VISIBLE;b.homeDailyButton.text="View Result"}else{b.homeDailySubtitle.text="10 Questions • Medium";b.homeDailyScore.visibility=View.GONE;b.homeDailyButton.text="Start Challenge"} }
 
@@ -87,12 +87,11 @@ class MainActivity : AppCompatActivity() {
         b.settingsBackButton.setOnClickListener { show("home") }; b.reviewBackButton.setOnClickListener { show("result") }; b.flaggedBackButton.setOnClickListener { show("quiz") }
         b.resetDataButton.setOnClickListener { DialogHelper.showConfirm(this,"Reset","Erase all?"){prefs.resetAll();Toast.makeText(this,"Cleared",Toast.LENGTH_SHORT).show()} }
         b.soundSwitch.isChecked=prefs.isSoundEnabled(); b.vibrationSwitch.isChecked=prefs.isVibrationEnabled(); b.timerSwitch.isChecked=prefs.isTimerEnabled()
-        val dbs=listOf(b.durationBtn10,b.durationBtn15,b.durationBtn20,b.durationBtn30); val ds_=listOf(10,15,20,30); sd(dbs,ds_.indexOf(prefs.getTimerDuration()).coerceAtLeast(0))
-        dbs.forEachIndexed { i,bt -> bt.setOnClickListener { prefs.setTimerDuration(ds_[i]); sd(dbs,i) } }
+        val dbs=listOf(b.durationBtn10,b.durationBtn15,b.durationBtn20,b.durationBtn30); val ds_=listOf(10,15,20,30); selBtn(dbs,ds_.indexOf(prefs.getTimerDuration()).coerceAtLeast(0))
+        dbs.forEachIndexed { i,bt -> bt.setOnClickListener { prefs.setTimerDuration(ds_[i]); selBtn(dbs,i) } }
         b.soundSwitch.setOnCheckedChangeListener { _,c->prefs.setSoundEnabled(c) }; b.vibrationSwitch.setOnCheckedChangeListener { _,c->prefs.setVibrationEnabled(c) }
         b.timerSwitch.setOnCheckedChangeListener { _,c->prefs.setTimerEnabled(c);b.timerDurationCard.visibility=if(c)View.VISIBLE else View.GONE }; b.timerDurationCard.visibility=if(prefs.isTimerEnabled())View.VISIBLE else View.GONE
     }
-    private fun sd(btns: List<com.google.android.material.button.MaterialButton>, s: Int) { btns.forEachIndexed { i,b -> if(i==s){b.backgroundTintList=android.content.res.ColorStateList.valueOf(getColor(R.color.primary_pink));b.setTextColor(Color.WHITE)}else{b.backgroundTintList=null;b.setBackgroundColor(Color.TRANSPARENT);b.setTextColor(getColor(R.color.chocolate_brown))} } }
     private fun setupP() { b.practiceBackButton.setOnClickListener { show("result") } }
 
     private fun show(s: String) { listOf(b.homeGroup,b.loadingGroup,b.errorGroup,b.quizGroup,b.resultGroup,b.reviewGroup,b.historyGroup,b.settingsGroup,b.flaggedGroup,b.statisticsGroup,b.practiceGroup).forEach{it.visibility=View.GONE}
@@ -228,7 +227,7 @@ class MainActivity : AppCompatActivity() {
             val c=LinearLayout(this).apply{orientation=LinearLayout.VERTICAL;setPadding(dp(14),dp(10),dp(14),dp(10))};c.addView(TextView(this).apply{text=obj.optString("category","?");setTextColor(getColor(R.color.chocolate_brown));textSize=15f;setTypeface(null,Typeface.BOLD)})
             val co=obj.optInt("correct",0);val tot=obj.optInt("totalQuestions",0);val p=if(tot>0)(co*100)/tot else 0
             c.addView(TextView(this).apply{text="$co / $tot • $p%";setTextColor(getColor(R.color.primary_pink));textSize=15f;setTypeface(null,Typeface.BOLD);setPadding(0,dp(2),0,0)});card.addView(c);b.historyListContainer.addView(card)}catch(_:Exception){}}}
-    private fun fS(){b.statsContainer.removeAllViews();b.categoryPerfContainer.removeAllViews();b.recentPerfContainer.removeAllViews()
+    private fun fS(){b.statsContainer.removeAllViews();b.categoryPerfContainer.removeAllViews()
         listOf("Quizzes Played" to "${prefs.getQuizzesPlayed()}","Questions Answered" to "${prefs.getTotalQuestionsAnswered()}","Correct" to "${prefs.getTotalCorrect()}","Wrong" to "${prefs.getTotalWrong()}","Skipped" to "${prefs.getTotalSkipped()}","Accuracy" to "${prefs.getAccuracy()}%","Best Score" to "${prefs.getBestScore()} / ${prefs.getBestTotal()}","Best Streak" to "${prefs.getBestStreak()}","Average" to String.format("%.1f/10",prefs.getAverageScore())).forEach{(l,v)->
             val card=CardView(this).apply{layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT).apply{bottomMargin=dp(8)};radius=dp(10).toFloat();cardElevation=dp(2).toFloat();setCardBackgroundColor(Color.WHITE)}
             val c=LinearLayout(this).apply{orientation=LinearLayout.VERTICAL;setPadding(dp(12),dp(8),dp(12),dp(8))};c.addView(TextView(this).apply{text=l;setTextColor(getColor(R.color.warm_brown));textSize=11f;setTypeface(null,Typeface.BOLD)})

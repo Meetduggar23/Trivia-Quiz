@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
     <color name="primary_pink">#D86B8A</color>
     <color name="primary_dark">#A94362</color>
     <color name="warm_brown">#795548</color>
@@ -11,13 +8,7 @@
     <color name="card_white">#FFFFFF</color>
     <color name="correct_green">#4CAF50</color>
     <color name="wrong_red">#D9534F</color>
-    <color name="transparent">#00000000</color>
-
-    <color name="pink_light">#F2D4DE</color>
-    <color name="brown_light">#D7CCC8</color>
-    <color name="text_secondary">#9E9E9E</color>
     <color name="card_border">#E0E0E0</color>
     <color name="flag_orange">#FF9800</color>
-    <color name="streak_orange">#FF6D00</color>
     <color name="skipped_gray">#9E9E9E</color>
 </resources>

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.TriviaQuiz" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.TriviaQuiz" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/primary_pink</item>
         <item name="colorOnPrimary">@color/card_white</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
@@ -9,16 +9,4 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:icon">@mipmap/ic_launcher</item>
     </style>
-
-    <style name="Theme.TriviaQuiz.Content" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/primary_pink</item>
-        <item name="colorOnPrimary">@color/card_white</item>
-        <item name="colorPrimaryVariant">@color/primary_dark</item>
-        <item name="colorSecondary">@color/primary_pink</item>
-        <item name="android:windowBackground">@color/soft_cream</item>
-        <item name="android:statusBarColor">@color/soft_cream</item>
-        <item name="android:windowLightStatusBar">true</item>
-    </style>
-
-    <style name="Theme.TriviaQuiz" parent="Base.Theme.TriviaQuiz" />
 </resources>

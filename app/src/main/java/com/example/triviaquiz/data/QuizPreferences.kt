@@ -41,7 +41,6 @@ class QuizPreferences(context: Context) {
         incrementQuizzesPlayed()
         addStats(totalQuestions, correct, wrong, skipped, bestStreak, category)
         addCategoryPerformance(category, correct, totalQuestions)
-        addRecentPerformance(correct, totalQuestions)
         addXP(correct * 10 + if (correct == totalQuestions) 50 else 0)
     }
 
@@ -65,7 +64,6 @@ class QuizPreferences(context: Context) {
             .putInt("total_skipped", 0)
             .putInt("total_best_streak", 0)
             .remove("category_performance")
-            .remove("recent_performance")
             .apply()
     }
 
@@ -140,32 +138,6 @@ class QuizPreferences(context: Context) {
             result
         } catch (_: Exception) { emptyMap() }
     }
-
-    private fun addRecentPerformance(correct: Int, total: Int) {
-        val json = prefs.getString("recent_performance", "[]") ?: "[]"
-        val arr = JSONArray(json)
-        arr.put(JSONObject().apply { put("correct", correct); put("total", total) })
-        if (arr.length() > 10) {
-            val newArr = JSONArray()
-            for (i in arr.length() - 10 until arr.length()) newArr.put(arr.get(i))
-            prefs.edit().putString("recent_performance", newArr.toString()).apply()
-        } else {
-            prefs.edit().putString("recent_performance", arr.toString()).apply()
-        }
-    }
-
-    fun getRecentPerformance(): List<Pair<Int, Int>> {
-        return try {
-            val json = prefs.getString("recent_performance", "[]") ?: "[]"
-            val arr = JSONArray(json)
-            (0 until arr.length()).map {
-                val obj = arr.getJSONObject(it)
-                Pair(obj.getInt("correct"), obj.getInt("total"))
-            }
-        } catch (_: Exception) { emptyList() }
-    }
-
-    fun getDailyChallengeDate(): String = prefs.getString("daily_date", "") ?: ""
 
     fun setDailyChallengeComplete(score: Int, total: Int) {
         val today = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())

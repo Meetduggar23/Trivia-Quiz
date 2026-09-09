@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="appicon2.png" alt="Trivia Quiz Logo" width="150" />
-
 # Trivia Quiz
 
 A modern Android trivia quiz app built with **HttpURLConnection**, **org.json**, and **Kotlin Coroutines**.
@@ -39,14 +37,19 @@ MainActivity
 com.example.triviaquiz/
 ├── MainActivity.kt
 ├── model/
-│   └── Question.kt
+│   ├── Question.kt
+│   └── QuizState.kt
 ├── network/
 │   ├── NetworkUtils.kt
 │   ├── NetworkResult.kt
 │   └── NetworkClient.kt
-└── data/
-    ├── JsonParser.kt
-    └── QuizRepository.kt
+├── data/
+│   ├── JsonParser.kt
+│   ├── QuizRepository.kt
+│   └── QuizPreferences.kt
+└── util/
+    ├── DialogHelper.kt
+    └── SoundManager.kt
 ```
 
 ## Tech Stack
@@ -66,12 +69,6 @@ com.example.triviaquiz/
 2. Open in Android Studio
 3. Sync Gradle
 4. Run on an emulator or device (min SDK 24 / Android 7.0)
-
-## Screenshots
-
-| Loading | Quiz | Result |
-|---------|------|--------|
-| Loading spinner | Question + 4 answers | Final score + Play Again |
 
 ## License
 

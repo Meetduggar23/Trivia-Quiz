@@ -771,7 +771,6 @@
                     android:orientation="vertical">
                     <LinearLayout android:id="@+id/statsContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
                     <LinearLayout android:id="@+id/categoryPerfContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp" />
-                    <LinearLayout android:id="@+id/recentPerfContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
